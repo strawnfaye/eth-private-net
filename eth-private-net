@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IDENTITIES=(alice bob lily)
+IDENTITIES=(alice bob lily zach)
 FLAGS='--networkid=8888 --preload=identities.js'
 DEV_FLAGS='--nodiscover --verbosity=4'
 
@@ -73,6 +73,9 @@ case $CMD in
       lily)
         OFFSET=3
         ;;
+     
+      zach)
+        OFFSET=4
     esac
 
     PORT=$((BASE_PORT + OFFSET))
