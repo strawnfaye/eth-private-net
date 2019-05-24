@@ -83,7 +83,7 @@ case $CMD in
     RPC_PORT=$((BASE_RPC_PORT + OFFSET))
 
     echo "Starting node for $IDENTITY on port: $PORT, RPC port: $RPC_PORT. Console logs sent to ./$IDENTITY/console.log"
-    geth --debug --vmdebug --datadir=./$IDENTITY --port=$PORT --rpcport=$RPC_PORT $FLAGS $DEV_FLAGS console 2>> ./$IDENTITY/console.log
+    geth --debug --vmdebug --rpcapi eth,net,web3 --datadir=./$IDENTITY --port=$PORT --rpcport=$RPC_PORT $FLAGS $DEV_FLAGS console 2>> ./$IDENTITY/console.log
     ;;
 
   connect)
