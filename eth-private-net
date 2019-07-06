@@ -100,6 +100,34 @@ case $CMD in
     echo "$USAGE"
     ;;
 
+  connectThree)
+    IDENTITY1=$2
+    IDENTITY2=$3
+    IDENTITY3=$4
+
+    ENODE1=$(exec_on_node $IDENTITY1 'admin.nodeInfo.enode')
+    ENODE2=$(exec_on_node $IDENTITY2 'admin.nodeInfo.enode')
+    CONNECT_JS1="admin.addPeer($ENODE1)"
+    CONNECT_JS2="admin.addPeer($ENODE2)"
+
+    exec_on_node $IDENTITY2 $CONNECT_JS1
+    exec_on_node $IDENTITY3 $CONNECT_JS1
+    exec_on_node $IDENTITY3 $CONNECT_JS2
+    ;;
+
+  runTestScript)
+    IDENTITY=$2
+    TESTSCRIPT=$3
+
+    exec_on_node $IDENTITY "loadScript('testScripts/$TESTSCRIPT')"
+    ;;
+
+  startMiner)
+    IDENTITY=$2
+
+    exec_on_node $IDENTITY 'miner.start()'
+    ;;
+
   *)
     echo "Command '$CMD' not recognized!"
     echo "$USAGE"
