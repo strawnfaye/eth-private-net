@@ -18,6 +18,7 @@ aliceAfter = eth.getBalance(alice);
 lilyAfter = eth.getBalance(lily);
 console.log('alice`s account balance after tx: ', aliceAfter);
 console.log('lily`s account balance after tx: ', lilyAfter);
+// TODO: more exact calculation with gas and stuff for pass/fail condition
 if (aliceBefore > aliceAfter && lilyBefore < lilyAfter) {
   console.log('PASSED! Transaction successfully completed.');
 } else {

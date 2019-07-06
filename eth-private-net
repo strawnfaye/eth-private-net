@@ -128,6 +128,12 @@ case $CMD in
     exec_on_node $IDENTITY 'miner.start()'
     ;;
 
+  stopMiner)
+    IDENTITY=$2
+
+    exec_on_node $IDENTITY 'miner.stop()'
+    ;;
+
   *)
     echo "Command '$CMD' not recognized!"
     echo "$USAGE"

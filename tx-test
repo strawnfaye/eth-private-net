@@ -3,3 +3,4 @@
 ./eth-private-net connectThree bob alice lily
 ./eth-private-net startMiner bob
 ./eth-private-net runTestScript alice simpleTx.js
+./eth-private-net stopMiner bob
