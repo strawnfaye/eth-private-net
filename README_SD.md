@@ -23,6 +23,8 @@ $ ./eth-private-net start alice
 $ ./eth-private-net start lily
 ```
 
+_note: I recommend creating aliases in your `.bashrc` or `.bash_profile` for above commands (i.e. one for both refresh commands, then 3 separate ones for starting the nodes). It feels way less frustrating when the commands are just one word!_
+
 ### Run the bash script
 
 This script connects the three nodes, starts bob's miner, and sends a small amount of ether from alice to lily.
