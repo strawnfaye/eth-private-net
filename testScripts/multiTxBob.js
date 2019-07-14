@@ -5,10 +5,13 @@ lily = '0xb1b6a66a410edc72473d92decb3772bad863e243';
 console.log('unlocking bob`s account');
 personal.unlockAccount(bob, 'foobar123', 10000);
 
+console.log();
 console.log('First transaction:');
 testTx();
+console.log();
 console.log('Second transaction:');
 testTx();
+console.log();
 console.log('Third transaction:');
 testTx();
 
@@ -44,13 +47,14 @@ function verifyTx() {
   console.log('bob`s account balance after tx: ', bobAfter);
   console.log('lily`s account balance after tx: ', lilyAfter);
   // TODO: more exact calculation with gas and stuff for pass/fail condition
-  if (
-    parseInt(bobBefore, 10) > parseInt(bobAfter, 10) &&
-    parseInt(lilyBefore, 10) < parseInt(lilyAfter, 10)
-  ) {
-    console.log('PASSED! Transaction successfully completed.');
+  if (eth.getTransactionReceipt(txn)) {
+    console.log('PASSED! Transaction ', txn, ' successfully completed.');
+    console.log(
+      'Found in block number ',
+      eth.getTransactionReceipt(txn).blockNumber
+    );
   } else {
-    console.log('FAIL. Something went wrong with this transaction.');
+    console.log('FAIL. Something went wrong with transaction ', txn);
   }
 }
 
