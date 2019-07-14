@@ -48,9 +48,9 @@ function verifyTx() {
     parseInt(lilyBefore, 10) > parseInt(lilyAfter, 10) &&
     parseInt(aliceBefore, 10) < parseInt(aliceAfter, 10)
   ) {
-    console.log('PASSED! Transaction successfully completed.');
+    console.log('PASSED! Transaction', txn, 'successfully completed.');
   } else {
-    console.log('FAIL. Something went wrong with this transaction.');
+    console.log('FAIL. Something went wrong with transaction ', txn);
   }
 }
 
