@@ -27,7 +27,8 @@ _note: I recommend creating aliases in your `.bashrc` or `.bash_profile` for abo
 
 ### Run the bash script
 
-This script connects the three nodes, starts bob's miner, and sends a small amount of ether from alice to lily.
+This script connects the three nodes, starts bob's miner, and then performs a series of transactions from multiple senders
+in parallel.
 
 ```
 $ ./tx-test

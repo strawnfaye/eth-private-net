@@ -122,6 +122,37 @@ case $CMD in
     exec_on_node $IDENTITY "loadScript('testScripts/$TESTSCRIPT')"
     ;;
 
+  connectFive)
+    IDENTITY1=$2
+    IDENTITY2=$3
+    IDENTITY3=$4
+    IDENTITY3=$5
+    IDENTITY3=$6
+
+    ENODE1=$(exec_on_node $IDENTITY1 'admin.nodeInfo.enode')
+    ENODE2=$(exec_on_node $IDENTITY2 'admin.nodeInfo.enode')
+    ENODE3=$(exec_on_node $IDENTITY3 'admin.nodeInfo.enode')
+    ENODE4=$(exec_on_node $IDENTITY4 'admin.nodeInfo.enode')
+    ENODE4=$(exec_on_node $IDENTITY4 'admin.nodeInfo.enode')
+    ENODE5=$(exec_on_node $IDENTITY5 'admin.nodeInfo.enode')
+    CONNECT_JS1="admin.addPeer($ENODE1)"
+    CONNECT_JS2="admin.addPeer($ENODE2)"
+    CONNECT_JS3="admin.addPeer($ENODE3)"
+    CONNECT_JS4="admin.addPeer($ENODE4)"
+    CONNECT_JS5="admin.addPeer($ENODE5)"
+
+    exec_on_node $IDENTITY1 $CONNECT_JS2
+    exec_on_node $IDENTITY1 $CONNECT_JS3
+    exec_on_node $IDENTITY1 $CONNECT_JS4
+    exec_on_node $IDENTITY1 $CONNECT_JS5
+    exec_on_node $IDENTITY2 $CONNECT_JS3
+    exec_on_node $IDENTITY2 $CONNECT_JS4
+    exec_on_node $IDENTITY2 $CONNECT_JS5
+    exec_on_node $IDENTITY3 $CONNECT_JS4
+    exec_on_node $IDENTITY3 $CONNECT_JS5
+    exec_on_node $IDENTITY4 $CONNECT_JS5
+    ;;
+
   startMiner)
     IDENTITY=$2
 
