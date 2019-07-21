@@ -5,15 +5,12 @@ lily = '0xb1b6a66a410edc72473d92decb3772bad863e243';
 console.log('unlocking alice`s account');
 personal.unlockAccount(alice, 'foobar123', 10000);
 
+// Run 10 transactions
 console.log();
-console.log('First transaction:');
-testTx();
-console.log();
-console.log('Second transaction:');
-testTx();
-console.log();
-console.log('Third transaction:');
-testTx();
+for (var i = 0; i < 3; i++) {
+  console.log('Transaction ', i, 'for alice:');
+  testTx();
+}
 
 function testTx() {
   initialBalances();

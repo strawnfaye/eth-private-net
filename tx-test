@@ -2,5 +2,9 @@
 
 ./eth-private-net connectThree bob alice lily
 ./eth-private-net startMiner bob
-./eth-private-net runTestScript alice multiTxAlice.js
+./eth-private-net runTestScript alice multiTxAlice.js &
+./eth-private-net runTestScript bob multiTxBob.js &
+
+wait
+
 ./eth-private-net stopMiner bob

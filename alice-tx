@@ -1,6 +1,0 @@
-./eth-private-net connectThree bob alice lily
-./eth-private-net startMiner bob
-./eth-private-net startMiner alice
-./eth-private-net runTestScript alice multiTxAlice.js
-./eth-private-net stopMiner bob
-./eth-private-net stopMiner alice
