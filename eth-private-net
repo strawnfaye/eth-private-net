@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IDENTITIES=(alice bob lily zach)
+IDENTITIES=(alice bob lily zach ross)
 FLAGS='--networkid=8888 --preload=identities.js'
 DEV_FLAGS='--nodiscover --verbosity=4'
 
