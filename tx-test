@@ -1,9 +1,18 @@
 #!/bin/bash
 
-./eth-private-net connectThree bob alice lily
+./eth-private-net connect bob alice
+./eth-private-net connect bob lily
+./eth-private-net connect bob zach
+./eth-private-net connect bob ross
+./eth-private-net connect alice lily
+./eth-private-net connect alice zach
+./eth-private-net connect alice ross
+./eth-private-net connect lily zach
+./eth-private-net connect lily ross
+./eth-private-net connect zach ross
 ./eth-private-net startMiner bob
-./eth-private-net runTestScript alice multiTxAlice.js &
-./eth-private-net runTestScript bob multiTxBob.js &
+./eth-private-net runTestScript alice aliceToLily.js &
+./eth-private-net runTestScript zach zachToRoss.js &
 
 wait
 

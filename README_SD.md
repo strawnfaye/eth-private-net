@@ -27,7 +27,7 @@ _note: I recommend creating aliases in your `.bashrc` or `.bash_profile` for abo
 
 ### Run the bash script
 
-This script connects the three nodes, starts bob's miner, and then performs a series of transactions from multiple senders
+This script connects the five nodes, starts bob's miner, and then performs a series of transactions from multiple senders to multiple receivers.
 in parallel.
 
 ```
