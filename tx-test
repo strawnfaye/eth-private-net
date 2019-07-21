@@ -16,4 +16,5 @@
 
 wait
 
+./eth-private-net runTestScript bob minerBlocksBob.js
 ./eth-private-net stopMiner bob
