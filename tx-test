@@ -13,8 +13,10 @@
 ./eth-private-net startMiner bob
 ./eth-private-net runTestScript alice aliceToLily.js &
 ./eth-private-net runTestScript zach zachToRoss.js &
+./eth-private-net runTestScript ross rossToLily.js &
 
 wait
 
 ./eth-private-net runTestScript bob minerBlocksBob.js
 ./eth-private-net stopMiner bob
+python3 bob/logParser.py
