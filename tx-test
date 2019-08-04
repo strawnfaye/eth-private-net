@@ -1,5 +1,11 @@
 #!/bin/bash
 
+
+#echo "Cleaning bob's old log"
+#rm bob/console.log
+#touch bob/console.log
+#chmod 777 bob/console.log
+
 ./eth-private-net connect bob alice
 ./eth-private-net connect bob lily
 ./eth-private-net connect bob zach
@@ -19,4 +25,4 @@ wait
 
 ./eth-private-net runTestScript bob minerBlocksBob.js
 ./eth-private-net stopMiner bob
-python3 bob/logParser.py
+python3 logParser.py ./bob/console.log
