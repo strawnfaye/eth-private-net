@@ -7,18 +7,18 @@ personal.unlockAccount(ross, 'foobar123', 10000);
 
 // Run 10 transactions
 console.log();
-for (var i = 0; i < 5; i++) {
+for (var i = 0; i < 100; i++) {
   console.log('Transaction ', i, 'for ross:');
   testTx();
 }
 
 function testTx() {
   initialBalances();
-  console.log('Timeout to let miner mine a few blocks....');
-  sleep(5000);
+  // console.log('Timeout to let miner mine a few blocks....');
+  // sleep(5000);
   sendTx();
-  console.log('Timeout to let miner process tx....');
-  sleep(5000);
+  // console.log('Timeout to let miner process tx....');
+  // sleep(5000);
   verifyTx();
 }
 

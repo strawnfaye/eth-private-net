@@ -1,6 +1,6 @@
 import re
 
-log_file_path = "console.log"
+log_file_path = "bob/console.log"
 #regex = re.compile(r".*Locking control of sender.*|.*Releasing control of sender.*")
 regexLock = re.compile(r".*Locking control of sender.*")
 regexRelease = re.compile(r".*Releasing control of sender.*")
