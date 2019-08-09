@@ -1,6 +1,11 @@
 import re
+import sys
 
-log_file_path = "bob/console.log"
+if (len(sys.argv) != 2):
+	print("Error: expected command line arg, file to parse")
+	sys.exit()	
+	
+log_file_path = sys.argv[1]
 #regex = re.compile(r".*Locking control of sender.*|.*Releasing control of sender.*")
 regexLock = re.compile(r".*Locking control of sender.*")
 regexRelease = re.compile(r".*Releasing control of sender.*")
