@@ -1,10 +1,12 @@
 #!/bin/bash
 
 
-#echo "Cleaning bob's old log"
-#rm bob/console.log
-#touch bob/console.log
-#chmod 777 bob/console.log
+echo "Cleaning old logs"
+echo " " > bob/console.log
+echo " " > alice/console.log
+echo " " > lily/console.log
+echo " " > ross/console.log
+echo " " > zach/console.log
 
 ./eth-private-net connect bob alice
 ./eth-private-net connect bob lily
@@ -16,13 +18,22 @@
 ./eth-private-net connect lily zach
 ./eth-private-net connect lily ross
 ./eth-private-net connect zach ross
-./eth-private-net stopMiner bob
+./eth-private-net stopMiner ross
+./eth-private-net stopMiner lily
+./eth-private-net stopMiner alice
+./eth-private-net stopMiner zach
+./eth-private-net startMiner bob
 ./eth-private-net runTestScript alice aliceToLily.js &
 ./eth-private-net runTestScript zach zachToRoss.js &
 ./eth-private-net runTestScript ross rossToLily.js &
 
-wait
-
-./eth-private-net startMiner bob
+wait %1 %2 %3
+./eth-private-net stopMiner ross
+./eth-private-net stopMiner lily
+./eth-private-net stopMiner alice
+./eth-private-net stopMiner zach
+# ./eth-private-net stopMiner bob
 ./eth-private-net runTestScript bob minerBlocksBob.js
+./eth-private-net stopMiner bob
+
 python3 logParser.py ./bob/console.log

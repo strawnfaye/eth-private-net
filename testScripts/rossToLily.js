@@ -7,7 +7,7 @@ personal.unlockAccount(ross, 'foobar123', 10000);
 
 // Run 10 transactions
 console.log();
-for (var i = 0; i < 100; i++) {
+for (var i = 0; i < 3; i++) {
   console.log('Transaction ', i, 'for ross:');
   testTx();
 }
