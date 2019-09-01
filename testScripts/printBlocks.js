@@ -1,6 +1,4 @@
-// Prints the block object for each block Bob has mined.
-// the "true" param tells the method to send us the transactions
-// from the block as an array of objects instead of a hash.
+// Prints the block object for each block the miner has mined.
 lastBlock = eth.blockNumber;
 console.log(
   '---------------------------------------------------------------------------------'

@@ -1,11 +1,12 @@
 #!/bin/bash
 
+echo "START"
+# echo "Cleaning bob's old log."
+# rm bob/console.log
+# touch bob/console.log
+# chmod 777 bob/console.log
 
-#echo "Cleaning bob's old log"
-#rm bob/console.log
-#touch bob/console.log
-#chmod 777 bob/console.log
-
+echo "Connecting nodes:"
 ./eth-private-net connect bob alice
 ./eth-private-net connect bob lily
 ./eth-private-net connect bob zach
@@ -16,13 +17,24 @@
 ./eth-private-net connect lily zach
 ./eth-private-net connect lily ross
 ./eth-private-net connect zach ross
+
+echo "Ensuring miner is stopped:"
 ./eth-private-net stopMiner bob
-./eth-private-net runTestScript alice aliceToLily.js &
-./eth-private-net runTestScript zach zachToRoss.js &
-./eth-private-net runTestScript ross rossToLily.js &
+
+echo "Queuing transactions:"
+./eth-private-net sendTransaction alice lily
+
+echo "Mining started:"
+./eth-private-net startMiner bob
+./eth-private-net forceTimeout bob 8000
 
 wait
 
-./eth-private-net startMiner bob
-./eth-private-net runTestScript bob minerBlocksBob.js
+echo "Mining stopped:"
+./eth-private-net stopMiner bob
+./eth-private-net runTestScript bob printBlocks.js
+
+echo "Parsing log:"
 python3 logParser.py ./bob/console.log
+
+echo "END"
