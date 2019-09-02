@@ -1,10 +1,13 @@
 #!/bin/bash
 
 echo "START"
-# echo "Cleaning bob's old log."
-# rm bob/console.log
-# touch bob/console.log
-# chmod 777 bob/console.log
+
+echo "Cleaning old logs"
+echo " " > bob/console.log
+echo " " > alice/console.log
+echo " " > lily/console.log
+echo " " > ross/console.log
+echo " " > zach/console.log
 
 echo "Connecting nodes:"
 ./eth-private-net connect bob alice
@@ -23,6 +26,11 @@ echo "Ensuring miner is stopped:"
 
 echo "Queuing transactions:"
 ./eth-private-net sendTransaction alice lily
+./eth-private-net sendTransaction lily zach
+./eth-private-net sendTransaction alice ross
+./eth-private-net sendTransaction alice bob
+./eth-private-net sendTransaction ross alice
+./eth-private-net sendTransaction zach lily
 
 echo "Mining started:"
 ./eth-private-net startMiner bob
