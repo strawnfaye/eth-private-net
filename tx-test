@@ -25,12 +25,18 @@ echo "Ensuring miner is stopped:"
 ./eth-private-net stopMiner bob
 
 echo "Queuing transactions:"
-./eth-private-net sendTransaction alice lily
-./eth-private-net sendTransaction lily zach
-./eth-private-net sendTransaction alice ross
-./eth-private-net sendTransaction alice bob
-./eth-private-net sendTransaction ross alice
-./eth-private-net sendTransaction zach lily
+counter=1
+while [ $counter -le 2 ]
+do
+    ./eth-private-net sendTransaction alice lily
+    ./eth-private-net sendTransaction lily zach
+    ./eth-private-net sendTransaction alice ross
+    ./eth-private-net sendTransaction alice bob
+    ./eth-private-net sendTransaction ross alice
+    ./eth-private-net sendTransaction zach lily
+((counter++))
+done
+
 
 echo "Mining started:"
 ./eth-private-net startMiner bob
