@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "START"
 
 echo "Cleaning old logs"
 echo " " > ./bob/console.log
@@ -8,6 +9,7 @@ echo " " > ./lily/console.log
 echo " " > ./ross/console.log
 echo " " > ./zach/console.log
 
+echo "Connecting nodes:"
 ./eth-private-net connect bob alice
 ./eth-private-net connect bob lily
 ./eth-private-net connect bob zach
@@ -18,22 +20,28 @@ echo " " > ./zach/console.log
 ./eth-private-net connect lily zach
 ./eth-private-net connect lily ross
 ./eth-private-net connect zach ross
-./eth-private-net stopMiner ross
-./eth-private-net stopMiner lily
-./eth-private-net stopMiner alice
-./eth-private-net stopMiner zach
-./eth-private-net startMiner bob
-./eth-private-net runTestScript alice aliceToLily.js &
-./eth-private-net runTestScript zach zachToRoss.js &
-./eth-private-net runTestScript ross rossToLily.js &
 
-wait %1 %2 %3
-./eth-private-net stopMiner ross
-./eth-private-net stopMiner lily
-./eth-private-net stopMiner alice
-./eth-private-net stopMiner zach
-# ./eth-private-net stopMiner bob
-./eth-private-net runTestScript bob minerBlocksBob.js
+echo "Ensuring miner is stopped:"
 ./eth-private-net stopMiner bob
 
+echo "Queuing transactions:"
+./eth-private-net sendTransaction alice lily
+./eth-private-net sendTransaction lily zach
+./eth-private-net sendTransaction alice ross
+./eth-private-net sendTransaction alice bob
+./eth-private-net sendTransaction ross alice
+./eth-private-net sendTransaction zach lily
+
+echo "Mining started:"
+./eth-private-net startMiner bob
+./eth-private-net forceTimeout bob 8000
+
+wait
+
+echo "Mining stopped:"
+./eth-private-net stopMiner bob
+./eth-private-net runTestScript bob printBlocks.js
+
+
+echo "Parsing log:"
 python3 logParser.py ./*/console.log

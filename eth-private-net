@@ -122,6 +122,21 @@ case $CMD in
     exec_on_node $IDENTITY "loadScript('testScripts/$TESTSCRIPT')"
     ;;
 
+  sendTransaction)
+    IDENTITY=$2
+    RECEIVER=$3
+
+    exec_on_node $IDENTITY "loadScript('testScripts/sendTx.js'); sendTransaction('$IDENTITY', '$RECEIVER')"
+    ;;
+
+  forceTimeout)
+    IDENTITY=$2
+    TIME=$3
+
+    exec_on_node $IDENTITY "loadScript('testScripts/forceTimeout.js'); sleep($TIME)"
+    ;;
+
+
   connectFive)
     IDENTITY1=$2
     IDENTITY2=$3
