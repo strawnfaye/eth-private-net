@@ -29,7 +29,7 @@ counter=1
 while [ $counter -le 2 ]
 do
     ./eth-private-net sendTransaction alice lily
-    ./eth-private-net sendTransaction lily zach
+    # ./eth-private-net sendTransaction lily zach
     ./eth-private-net sendTransaction alice ross
     ./eth-private-net sendTransaction alice bob
     ./eth-private-net sendTransaction ross alice
