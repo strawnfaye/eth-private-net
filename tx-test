@@ -23,10 +23,15 @@ echo "Connecting nodes:"
 
 echo "Ensuring miner is stopped:"
 ./eth-private-net stopMiner bob
+./eth-private-net stopMiner lily
+./eth-private-net stopMiner alice
+./eth-private-net stopMiner ross
+./eth-private-net stopMiner zach
+
 
 echo "Queuing transactions:"
-counter=1
-while [ $counter -le 2 ]
+counter=3
+while [ $counter -gt 0 ]
 do
     ./eth-private-net sendTransaction alice lily
     # ./eth-private-net sendTransaction lily zach
@@ -34,7 +39,7 @@ do
     ./eth-private-net sendTransaction alice bob
     ./eth-private-net sendTransaction ross alice
     ./eth-private-net sendTransaction zach lily
-((counter++))
+((counter--))
 done
 
 
@@ -46,8 +51,8 @@ wait
 
 echo "Mining stopped:"
 ./eth-private-net stopMiner bob
-./eth-private-net runTestScript bob printBlocks.js
 
+./eth-private-net runTestScript bob printBlocks.js
 
 echo "Parsing log:"
 python3 logParser.py ./*/console.log
