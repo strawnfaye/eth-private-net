@@ -10,6 +10,7 @@ if (len(sys.argv) < 2):
 regexLock = re.compile(r".*Locking control of sender.*")
 regexRelease = re.compile(r".*Releasing control of sender.*")
 
+logBuffer = ""
 
 for i in range(1,len(sys.argv)):
 	log_file_path = sys.argv[i]
@@ -22,16 +23,19 @@ for i in range(1,len(sys.argv)):
 					parallelTransactionCtr += 1
 					if (parallelTransactionCtr > maxDegreeOfConcurrency):
 						maxDegreeOfConcurrency = parallelTransactionCtr
-					print(line)
-					print(parallelTransactionCtr, " transactions being attempted.")
+					logBuffer += str(line) + "\n"
+					logBuffer += str(parallelTransactionCtr) + " transactions being attempted.\n"
 
 				if (regexRelease.search(line)):
 					if parallelTransactionCtr > 0:
 						parallelTransactionCtr -= 1
-						print(line)
-						print(parallelTransactionCtr, " transactions being attempted.")
+						logBuffer += str(line) + "\n"
+						logBuffer += str(parallelTransactionCtr) + " transactions being attempted.\n"
 
 	file.close()
+
+	if (maxDegreeOfConcurrency > 1):
+		print(logBuffer)
 
 	print()
 	print("Max of ", maxDegreeOfConcurrency, " transactions run in parallel found in ", log_file_path)
