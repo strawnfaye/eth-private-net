@@ -3,11 +3,11 @@
 echo "START"
 
 echo "Cleaning old logs"
-echo " " > bob/console.log
-echo " " > alice/console.log
-echo " " > lily/console.log
-echo " " > ross/console.log
-echo " " > zach/console.log
+echo " " > ./bob/console.log
+echo " " > ./alice/console.log
+echo " " > ./lily/console.log
+echo " " > ./ross/console.log
+echo " " > ./zach/console.log
 
 echo "Connecting nodes:"
 ./eth-private-net connect bob alice
@@ -29,7 +29,7 @@ counter=1
 while [ $counter -le 2 ]
 do
     ./eth-private-net sendTransaction alice lily
-    ./eth-private-net sendTransaction lily zach
+    # ./eth-private-net sendTransaction lily zach
     ./eth-private-net sendTransaction alice ross
     ./eth-private-net sendTransaction alice bob
     ./eth-private-net sendTransaction ross alice
@@ -48,7 +48,6 @@ echo "Mining stopped:"
 ./eth-private-net stopMiner bob
 ./eth-private-net runTestScript bob printBlocks.js
 
-echo "Parsing log:"
-python3 logParser.py ./bob/console.log
 
-echo "END"
+echo "Parsing log:"
+python3 logParser.py ./*/console.log
