@@ -30,7 +30,7 @@ echo "Ensuring miner is stopped:"
 
 
 echo "Queuing transactions:"
-counter=3
+counter=1
 while [ $counter -gt 0 ]
 do
     ./eth-private-net sendTransaction alice lily
@@ -45,12 +45,21 @@ done
 
 echo "Mining started:"
 ./eth-private-net startMiner bob
-./eth-private-net forceTimeout bob 8000
+./eth-private-net startMiner alice
+./eth-private-net startMiner ross
+./eth-private-net startMiner lily
+./eth-private-net startMiner zach
+
+#./eth-private-net forceTimeout bob 8000
 
 wait
 
 echo "Mining stopped:"
 ./eth-private-net stopMiner bob
+./eth-private-net stopMiner alice
+./eth-private-net stopMiner ross
+./eth-private-net stopMiner lily
+./eth-private-net stopMiner zach
 
 ./eth-private-net runTestScript bob printBlocks.js
 
