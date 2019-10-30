@@ -1,0 +1,100 @@
+$teal: #00796b
+$lightteal: #48a999
+$darkteal: #004c40
+$green: #9ccc65
+$lightgreen: #cfff95
+$darkgreen: #6b9b37
+$lightgrey: #eceff1
+$mediumgrey: #b0bec5
+$darkgrey: #808e95
+$purple: #b085f5
+
+.container
+    height: 100vh
+    width: 100vw
+    background-color: $lightgrey
+
+.header-bar
+    background-color: $teal
+    color: white
+    height: 80px
+    width: 100vw
+    top: 0
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.3)
+    padding: 10px
+
+.main
+    margin: 20px
+
+.main-body
+    width: 60%
+    margin-left: 200px
+    margin-right: 200px
+
+.network-node
+    height: 140px
+    width: 280px
+    background-color: white
+    color: $darkgrey
+    border-radius: 5px
+    margin: 10px
+    overflow: hidden
+    box-shadow: 2px 2px 5px 0 #a36a6a33
+
+.network-node-avatar
+    background-color: $mediumgrey
+    height: 100%
+    width: 60%
+
+.network-node-body
+    width: 100%
+    padding: 10px
+    margin: 10px
+
+.network-node-body-buttons
+    width: 100%
+
+.network-node-body-info
+    border-bottom: 2px solid $green
+    color: black
+    height: 20px
+
+.u-flex-col
+    display: flex
+    flex-direction: column
+
+    .mod-space-between
+        justify-content: space-between
+
+    .mod-space-around
+        justify-content: space-around
+        align-items: space-around
+
+    .mod-center
+        align-content: center
+
+.u-flex-row
+    display: flex
+    flex-direction: row
+    .mod-center
+        align-items: center
+        justify-content: center
+
+    .mod-space-between
+        justify-content: space-between
+
+    .mod-space-evenly
+        justify-content: space-evenly
+
+    .mod-space-around
+        justify-content: space-around
+
+.mdl-button--fab.mdl-button--colored.mod-green
+    background: $darkgreen !important
+
+.mdl-button--fab.mdl-button--colored.mod-grey
+    background: $darkgrey !important
+
+.mdl-button--fab.mdl-button--colored.mod-white
+    background: white !important
+    color: $teal !important

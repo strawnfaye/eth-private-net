@@ -1,0 +1,228 @@
+<div class="main-body u-flex-col mod-center">
+  <div class="network u-flex-row mod-space-around">
+    <div class="network-node u-flex-row">
+      <div class="network-node-avatar"></div>
+      <div class="network-node-body u-flex-col mod-space-between">
+        <div class="network-node-body-info">
+          <p><%= nodeNames[0] %></p>
+        </div>
+        <div class="network-node-body-buttons u-flex-row mod-space-evenly">
+          <button
+            id="startNode"
+            class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mod-white"
+          >
+            <i class="material-icons">rss_feed</i>
+          </button>
+          <div class="mdl-tooltip" data-mdl-for="bob-start">
+            Start node
+          </div>
+          <button
+            id="startMining"
+            class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mod-grey"
+          >
+            <i class="material-icons">memory</i>
+          </button>
+          <div class="mdl-tooltip" data-mdl-for="bob-mine">
+            Start Mining
+          </div>
+          <button
+            id="bob-send-tx"
+            class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mod-green"
+          >
+            <i class="material-icons">local_atm</i>
+          </button>
+          <div class="mdl-tooltip" data-mdl-for="bob-send-tx">
+            Send transaction
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="network u-flex-row mod-space-between">
+    <div class="network-node u-flex-row">
+      <div class="network-node-avatar"></div>
+      <div class="network-node-body u-flex-col mod-space-between">
+        <div class="network-node-body-info">
+          <p><%= nodeNames[1] %></p>
+        </div>
+        <div class="network-node-body-buttons u-flex-row mod-center">
+          <button
+            class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mod-white"
+          >
+            <i class="material-icons">rss_feed</i>
+          </button>
+          <button
+            class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mod-grey"
+          >
+            <i class="material-icons">memory</i>
+          </button>
+          <button
+            class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mod-green"
+          >
+            <i class="material-icons">local_atm</i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="network-node u-flex-row">
+      <div class="network-node-avatar"></div>
+      <div class="network-node-body u-flex-col mod-space-between">
+        <div class="network-node-body-info">
+          <p><%= nodeNames[2] %></p>
+        </div>
+        <div class="network-node-body-buttons u-flex-row mod-space-evenly">
+          <button
+            id="startNode"
+            class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mod-white"
+          >
+            <i class="material-icons">rss_feed</i>
+          </button>
+          <div class="mdl-tooltip" data-mdl-for="startNode">
+            Start node
+          </div>
+          <button
+            id="startMining"
+            class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mod-grey"
+          >
+            <i class="material-icons">memory</i>
+          </button>
+          <div class="mdl-tooltip" data-mdl-for="startMining">
+            Start Mining
+          </div>
+          <button
+            id="sendTx"
+            class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mod-green"
+          >
+            <i class="material-icons">local_atm</i>
+          </button>
+          <div class="mdl-tooltip" data-mdl-for="sendTx">
+            Send transaction
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="network u-flex-row mod-space-around">
+    <div class="network-node u-flex-row">
+      <div class="network-node-avatar"></div>
+      <div class="network-node-body u-flex-col mod-space-between">
+        <div class="network-node-body-info">
+          <p><%= nodeNames[3] %></p>
+        </div>
+        <div class="network-node-body-buttons u-flex-row mod-space-evenly">
+          <button
+            id="startNode"
+            class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mod-white"
+          >
+            <i class="material-icons">rss_feed</i>
+          </button>
+          <div class="mdl-tooltip" data-mdl-for="startNode">
+            Start node
+          </div>
+          <button
+            id="startMining"
+            class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mod-grey"
+          >
+            <i class="material-icons">memory</i>
+          </button>
+          <div class="mdl-tooltip" data-mdl-for="startMining">
+            Start Mining
+          </div>
+          <button
+            id="sendTx"
+            class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mod-green"
+          >
+            <i class="material-icons">local_atm</i>
+          </button>
+          <div class="mdl-tooltip" data-mdl-for="sendTx">
+            Send transaction
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="network-node u-flex-row">
+      <div class="network-node-avatar"></div>
+      <div class="network-node-body u-flex-col mod-space-between">
+        <div class="network-node-body-info">
+          <p><%= nodeNames[4] %></p>
+        </div>
+        <div class="network-node-body-buttons u-flex-row mod-space-evenly">
+          <button
+            id="startNode"
+            class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mod-white"
+          >
+            <i class="material-icons">rss_feed</i>
+          </button>
+          <div class="mdl-tooltip" data-mdl-for="startNode">
+            Start node
+          </div>
+          <button
+            id="startMining"
+            class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mod-grey"
+          >
+            <i class="material-icons">memory</i>
+          </button>
+          <div class="mdl-tooltip" data-mdl-for="startMining">
+            Start Mining
+          </div>
+          <button
+            id="sendTx"
+            class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mod-green"
+          >
+            <i class="material-icons">local_atm</i>
+          </button>
+          <div class="mdl-tooltip" data-mdl-for="sendTx">
+            Send transaction
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="blockchain">
+    <table>
+      <% for(var i=0; i < blocks.length; i++) { %>
+      <tr>
+        <td><%= blocks[i].number %></td>
+        <td><%= blocks[i].hash %></td>
+        <td><%= blocks[i].miner %></td>
+        <td><%= blocks[i].timestamp %></td>
+        <td><%= blocks[i].transactions %></td>
+      </tr>
+      <% } %>
+    </table>
+  </div>
+</div>
+<script>
+  const startNodeButton = document.getElementById('startNode');
+  startNodeButton.addEventListener('click', function(e) {
+    console.log('button was clicked');
+
+    fetch('/clickedStartNode', { method: 'GET' })
+      .then(function(response) {
+        if (response.ok) {
+          console.log('Click was recorded');
+          return;
+        }
+        throw new Error('Request failed.');
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  });
+  const startMiningButton = document.getElementById('startMining');
+  startMiningButton.addEventListener('click', function(e) {
+    console.log('button was clicked');
+
+    fetch('/clickedStartMiner', { method: 'GET' })
+      .then(function(response) {
+        if (response.ok) {
+          console.log('Click was recorded');
+          return;
+        }
+        throw new Error('Request failed.');
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  });
+</script>

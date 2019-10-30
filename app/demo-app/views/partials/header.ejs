@@ -1,0 +1,36 @@
+<div class="header-bar u-flex-row mod-center mod-space-between">
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Title</span>
+    bleh
+  </div>
+  <div class="header-bar-text">
+    <h4>
+      Crypto(con)currency: Analyzing Blockchain Correctness with Concurrent
+      Ethereum Transactions
+    </h4>
+  </div>
+  <div class="header-bar-buttons">
+    <button id="showBlocks" class="mdl-button mdl-js-button mdl-button--icon">
+      <i class="material-icons">account_tree</i>
+    </button>
+  </div>
+</div>
+
+<script>
+  const showBlocksButton = document.getElementById('showBlocks');
+  showBlocksButton.addEventListener('click', function(e) {
+    console.log('button was clicked');
+
+    fetch('/clickedShowBlocks', { method: 'GET' })
+      .then(function(response) {
+        if (response.ok) {
+          console.log('Click was recorded');
+          return;
+        }
+        throw new Error('Request failed.');
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  });
+</script>
