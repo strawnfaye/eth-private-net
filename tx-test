@@ -28,8 +28,9 @@ echo "Ensuring miner is stopped:"
 ./eth-private-net stopMiner ross
 ./eth-private-net stopMiner zach
 
-echo "Sending transactions:"
-counter=3
+
+echo "Queuing transactions:"
+counter=2
 while [ $counter -gt 0 ]
 do
     ./eth-private-net sendTransaction alice lily
@@ -48,7 +49,8 @@ echo "Mining started:"
 ./eth-private-net startMiner lily
 ./eth-private-net forceTimeout bob 2000
 
-wait
+echo "Pausing for 20 seconds to mine"
+sleep 20
 
 echo "Mining stopped:"
 ./eth-private-net stopMiner bob
