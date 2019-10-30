@@ -15,85 +15,71 @@ var nodeNames = [];
 var blocks = [];
 var web3Refs = new Map();
 var namesMap = new Map();
+var setWeb3 = true;
 namesMap.set('0xdda6ef2ff259928c561b2d30f0cad2c2736ce8b6', 'Alice');
 namesMap.set('0x8691bf25ce4a56b15c1f99c944dc948269031801', 'Bob');
 namesMap.set('0xb1b6a66a410edc72473d92decb3772bad863e243', 'Lily');
 namesMap.set('0x90a61bb2104d2f00d4d75fcbad3522e120d1dcd1', 'Zach');
 namesMap.set('0xa9284bd5eec49c7a25037ed745089aee7b1ba25f', 'Ross');
 
-var bob_web3 = new Web3(
-  new Web3.providers.IpcProvider('../../bob/geth.ipc', net)
-);
-bob_web3.eth
-  .getCoinbase()
-  .then(function(address) {
-    nodeNames.push(namesMap.get(address.toString()));
-    console.log(nodeNames);
-    web3Refs.set(nodeNames[0], bob_web3);
-  })
-  .catch(error => {
-    console.log(error);
-  });
+// var alice_web3 = new Web3(
+//   new Web3.providers.IpcProvider('../../alice/geth.ipc', net)
+// );
+// alice_web3.eth
+//   .getCoinbase()
+//   .then(function(address) {
+//     nodeNames.push(namesMap.get(address.toString()));
+//     console.log(nodeNames);
+//     web3Refs.set(nodeNames[1], alice_web3);
+//   })
+//   .catch(error => {
+//     console.log(error);
+//   });
 
-var alice_web3 = new Web3(
-  new Web3.providers.IpcProvider('../../alice/geth.ipc', net)
-);
-alice_web3.eth
-  .getCoinbase()
-  .then(function(address) {
-    nodeNames.push(namesMap.get(address.toString()));
-    console.log(nodeNames);
-    web3Refs.set(nodeNames[1], alice_web3);
-  })
-  .catch(error => {
-    console.log(error);
-  });
+// var lily_web3 = new Web3(
+//   new Web3.providers.IpcProvider('../../lily/geth.ipc', net)
+// );
+// lily_web3.eth
+//   .getCoinbase()
+//   .then(function(address) {
+//     nodeNames.push(namesMap.get(address.toString()));
+//     console.log(nodeNames);
+//     web3Refs.set(nodeNames[2], lily_web3);
+//   })
+//   .catch(error => {
+//     console.log(error);
+//   });
 
-var lily_web3 = new Web3(
-  new Web3.providers.IpcProvider('../../lily/geth.ipc', net)
-);
-lily_web3.eth
-  .getCoinbase()
-  .then(function(address) {
-    nodeNames.push(namesMap.get(address.toString()));
-    console.log(nodeNames);
-    web3Refs.set(nodeNames[2], lily_web3);
-  })
-  .catch(error => {
-    console.log(error);
-  });
+// var ross_web3 = new Web3(
+//   new Web3.providers.IpcProvider('../../ross/geth.ipc', net)
+// );
+// ross_web3.eth
+//   .getCoinbase()
+//   .then(function(address) {
+//     nodeNames.push(namesMap.get(address.toString()));
+//     console.log(nodeNames);
+//     web3Refs.set(nodeNames[3], ross_web3);
+//   })
+//   .catch(error => {
+//     console.log(error);
+//   });
 
-var ross_web3 = new Web3(
-  new Web3.providers.IpcProvider('../../ross/geth.ipc', net)
-);
-ross_web3.eth
-  .getCoinbase()
-  .then(function(address) {
-    nodeNames.push(namesMap.get(address.toString()));
-    console.log(nodeNames);
-    web3Refs.set(nodeNames[3], ross_web3);
-  })
-  .catch(error => {
-    console.log(error);
-  });
+// var zach_web3 = new Web3(
+//   new Web3.providers.IpcProvider('../../zach/geth.ipc', net)
+// );
+// zach_web3.eth
+//   .getCoinbase()
+//   .then(function(address) {
+//     nodeNames.push(namesMap.get(address.toString()));
+//     console.log(nodeNames);
+//     web3Refs.set(nodeNames[4], zach_web3);
+//   })
+//   .catch(error => {
+//     console.log(error);
+//   });
 
-var zach_web3 = new Web3(
-  new Web3.providers.IpcProvider('../../zach/geth.ipc', net)
-);
-zach_web3.eth
-  .getCoinbase()
-  .then(function(address) {
-    nodeNames.push(namesMap.get(address.toString()));
-    console.log(nodeNames);
-    web3Refs.set(nodeNames[4], zach_web3);
-  })
-  .catch(error => {
-    console.log(error);
-  });
-
-// const { exec } = require('child_process');
 const util = require('util');
-const exec = util.promisify(require('child_process').exec);
+const { spawn } = require('child_process');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -105,24 +91,35 @@ app.get('/', function(req, res) {
   });
 });
 
-app.get('/clickedStartNode', function(req, res) {
-  console.log('in app.get()');
-  function startNode() {
-    console.log('in function');
-    const { stdout, stderr } = exec('cd ../..; ./eth-private-net start bob')
-      .then(result => {
-        console.log('result: ', result);
+app.get('/clickedStartNodeBob', function(req, res) {
+  res.status(200);
+  const start = spawn('./eth-private-net start bob', [], {
+    shell: true,
+    cwd: '/Users/faye/Documents/School/Senior Design/eth-private-net'
+  });
+  console.log('pid: ', start.pid);
+  start.stdout.on('data', data => {
+    console.log(`stdout: ${data}`);
+  });
+  start.stderr.on('data', data => {
+    console.error(`stderr: ${data}`);
+  });
+  if (start.stdout) {
+    console.log('trying to connect');
+    var bob_web3 = new Web3(
+      new Web3.providers.IpcProvider('../../bob/geth.ipc', net)
+    );
+    bob_web3.eth
+      .getCoinbase()
+      .then(function(address) {
+        nodeNames.push(namesMap.get(address.toString()));
+        console.log(nodeNames);
+        web3Refs.set(nodeNames[0], bob_web3);
       })
       .catch(error => {
-        console.log('error: ', error);
+        console.log(error);
       });
-    if (stderr) {
-      console.log(stderr);
-    } else {
-      return stdout;
-    }
   }
-  startNode().then(console.log('started node'));
 });
 
 app.get('/clickedStartMiner', function(req, res) {
