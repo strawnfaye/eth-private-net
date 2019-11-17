@@ -1,0 +1,32 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span
+      >Crypto(con)currency: Analyzing Blockchain Correctness With Concurrent
+      Ethereum</span
+    >
+  </mat-toolbar-row></mat-toolbar
+>
+
+<div class="main">
+  <div class="main-network" *ngIf="nodes && nodes.length > 0">
+    <mat-grid-list cols="4" rowHeight="105px">
+      <mat-grid-tile
+        *ngFor="let node of nodes"
+        [colspan]="node.cols"
+        [rowspan]="2"
+      >
+        <app-node [name]="node.name"></app-node>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <div *ngIf="!nodes || nodes.length === 0">
+    <ng-container *ngIf="loading">
+      <mat-spinner></mat-spinner>
+    </ng-container>
+    <ng-container *ngIf="!loading">
+      <button mat-raised-button color="accent" (click)="startNodes()">
+        Start All Nodes
+      </button>
+    </ng-container>
+  </div>
+</div>

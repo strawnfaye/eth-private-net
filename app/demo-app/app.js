@@ -22,61 +22,75 @@ namesMap.set('0xb1b6a66a410edc72473d92decb3772bad863e243', 'Lily');
 namesMap.set('0x90a61bb2104d2f00d4d75fcbad3522e120d1dcd1', 'Zach');
 namesMap.set('0xa9284bd5eec49c7a25037ed745089aee7b1ba25f', 'Ross');
 
-// var alice_web3 = new Web3(
-//   new Web3.providers.IpcProvider('../../alice/geth.ipc', net)
-// );
-// alice_web3.eth
-//   .getCoinbase()
-//   .then(function(address) {
-//     nodeNames.push(namesMap.get(address.toString()));
-//     console.log(nodeNames);
-//     web3Refs.set(nodeNames[1], alice_web3);
-//   })
-//   .catch(error => {
-//     console.log(error);
-//   });
+var bob_web3 = new Web3(
+  new Web3.providers.IpcProvider('../../bob/geth.ipc', net)
+);
+bob_web3.eth
+  .getCoinbase()
+  .then(function(address) {
+    nodeNames.push(namesMap.get(address.toString()));
+    console.log(nodeNames);
+    web3Refs.set(nodeNames[1], bob_web3);
+  })
+  .catch(error => {
+    console.log(error);
+  });
 
-// var lily_web3 = new Web3(
-//   new Web3.providers.IpcProvider('../../lily/geth.ipc', net)
-// );
-// lily_web3.eth
-//   .getCoinbase()
-//   .then(function(address) {
-//     nodeNames.push(namesMap.get(address.toString()));
-//     console.log(nodeNames);
-//     web3Refs.set(nodeNames[2], lily_web3);
-//   })
-//   .catch(error => {
-//     console.log(error);
-//   });
+var alice_web3 = new Web3(
+  new Web3.providers.IpcProvider('../../alice/geth.ipc', net)
+);
+alice_web3.eth
+  .getCoinbase()
+  .then(function(address) {
+    nodeNames.push(namesMap.get(address.toString()));
+    console.log(nodeNames);
+    web3Refs.set(nodeNames[1], alice_web3);
+  })
+  .catch(error => {
+    console.log(error);
+  });
 
-// var ross_web3 = new Web3(
-//   new Web3.providers.IpcProvider('../../ross/geth.ipc', net)
-// );
-// ross_web3.eth
-//   .getCoinbase()
-//   .then(function(address) {
-//     nodeNames.push(namesMap.get(address.toString()));
-//     console.log(nodeNames);
-//     web3Refs.set(nodeNames[3], ross_web3);
-//   })
-//   .catch(error => {
-//     console.log(error);
-//   });
+var lily_web3 = new Web3(
+  new Web3.providers.IpcProvider('../../lily/geth.ipc', net)
+);
+lily_web3.eth
+  .getCoinbase()
+  .then(function(address) {
+    nodeNames.push(namesMap.get(address.toString()));
+    console.log(nodeNames);
+    web3Refs.set(nodeNames[2], lily_web3);
+  })
+  .catch(error => {
+    console.log(error);
+  });
 
-// var zach_web3 = new Web3(
-//   new Web3.providers.IpcProvider('../../zach/geth.ipc', net)
-// );
-// zach_web3.eth
-//   .getCoinbase()
-//   .then(function(address) {
-//     nodeNames.push(namesMap.get(address.toString()));
-//     console.log(nodeNames);
-//     web3Refs.set(nodeNames[4], zach_web3);
-//   })
-//   .catch(error => {
-//     console.log(error);
-//   });
+var ross_web3 = new Web3(
+  new Web3.providers.IpcProvider('../../ross/geth.ipc', net)
+);
+ross_web3.eth
+  .getCoinbase()
+  .then(function(address) {
+    nodeNames.push(namesMap.get(address.toString()));
+    console.log(nodeNames);
+    web3Refs.set(nodeNames[3], ross_web3);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+
+var zach_web3 = new Web3(
+  new Web3.providers.IpcProvider('../../zach/geth.ipc', net)
+);
+zach_web3.eth
+  .getCoinbase()
+  .then(function(address) {
+    nodeNames.push(namesMap.get(address.toString()));
+    console.log(nodeNames);
+    web3Refs.set(nodeNames[4], zach_web3);
+  })
+  .catch(error => {
+    console.log(error);
+  });
 
 const util = require('util');
 const { spawn } = require('child_process');
@@ -104,7 +118,7 @@ app.get('/clickedStartNodeBob', function(req, res) {
   start.stderr.on('data', data => {
     console.error(`stderr: ${data}`);
   });
-  if (start.stdout) {
+  setTimeout(function() {
     console.log('trying to connect');
     var bob_web3 = new Web3(
       new Web3.providers.IpcProvider('../../bob/geth.ipc', net)
@@ -115,11 +129,15 @@ app.get('/clickedStartNodeBob', function(req, res) {
         nodeNames.push(namesMap.get(address.toString()));
         console.log(nodeNames);
         web3Refs.set(nodeNames[0], bob_web3);
+        res.render('pages/index', {
+          nodeNames: nodeNames,
+          blocks: blocks
+        });
       })
       .catch(error => {
         console.log(error);
       });
-  }
+  }, 5000);
 });
 
 app.get('/clickedStartMiner', function(req, res) {

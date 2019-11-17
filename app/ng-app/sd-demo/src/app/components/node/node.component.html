@@ -1,0 +1,40 @@
+<div class="node">
+  <div class="node-main">
+    <ng-container *ngIf="_name === 'Bob'">
+      <img
+        src="assets/flat_avatar_faye.png"
+        alt="Faye Avatar"
+        width="150"
+        height="150"
+      />
+    </ng-container>
+    <ng-container *ngIf="_name !== 'Bob'">
+      <img
+        src="assets/flat_avatar_temp.png"
+        alt="Faye Avatar"
+        width="150"
+        height="150"
+      />
+    </ng-container>
+    <div class="node-buttons">
+      <div class="node-buttons-button u-default-margin">
+        <button mat-mini-fab color="primary" (click)="startMiner()">
+          <mat-icon>memory</mat-icon>
+        </button>
+      </div>
+      <div class="node-buttons-button u-default-margin">
+        <button mat-mini-fab color="primary" (click)="startMiner()">
+          <mat-icon>local_atm</mat-icon>
+        </button>
+      </div>
+      <div class="node-buttons-button u-default-margin">
+        <button mat-mini-fab color="primary" (click)="startMiner()">
+          <mat-icon>account_balance_wallet</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="node-name">
+    {{ _name }}
+  </div>
+</div>
