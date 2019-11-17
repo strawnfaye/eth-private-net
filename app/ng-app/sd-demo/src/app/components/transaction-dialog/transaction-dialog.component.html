@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Send Transaction From {{ data.sendFrom }}</h1>
+<div mat-dialog-content>
+  <p>Who do you want to send Ether to?</p>
+  <form>
+    <mat-form-field>
+      <mat-label>Select a recipient</mat-label>
+      <mat-select [(value)]="data.sendTo">
+        <mat-option *ngFor="let node of nodeList" [value]="node">
+          {{ node }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+  <p>Selected node: {{ data.sendTo }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data.sendTo" cdkFocusInitial>
+    Send
+  </button>
+</div>

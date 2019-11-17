@@ -35,11 +35,9 @@ export class NetworkComponent implements OnInit {
       console.log(nodes);
       nodes.forEach(node => {
         if (this.findIndex(this.nodes, node) === -1) {
-          let cols = 1;
+          let cols = 2;
           if (this.nodes.length === 0) {
             cols = 4;
-          } else if (this.nodes.length > 0 && this.nodes.length < 3) {
-            cols = 2;
           }
           const temp = new Node(node, cols);
           console.log(temp);

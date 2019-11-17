@@ -13,9 +13,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { TransactionDialogComponent } from './components/transaction-dialog/transaction-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, NodeComponent, NetworkComponent],
+  declarations: [
+    AppComponent,
+    NodeComponent,
+    NetworkComponent,
+    TransactionDialogComponent
+  ],
+  entryComponents: [TransactionDialogComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -24,7 +35,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatIconModule,
-    MatGridListModule
+    MatGridListModule,
+    MatMenuModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [NodeService],
   bootstrap: [AppComponent]

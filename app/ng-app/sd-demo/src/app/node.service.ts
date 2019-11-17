@@ -22,4 +22,12 @@ export class NodeService {
     console.log('name: ', name);
     return this.http.get<any>(`http://localhost:8000/api/startMiner/${name}`);
   }
+
+  sendTx(from: string, to: string): Observable<any> {
+    return this.http.get<any>(`http://localhost:8000/api/sendTx/${from}/${to}`);
+  }
+
+  printBlocks(name: string): Observable<any> {
+    return this.http.get<any>(`http://localhost:8000/api/printBlocks/${name}`);
+  }
 }
