@@ -10,4 +10,38 @@
 .main-network {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.main-network-miner-feed {
+  left: 0;
+  top: 0;
+  width: 20%;
+  height: 100%;
+  box-shadow: 6px 0 6px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.main-network-blockchain-feed {
+  right: 0;
+  top: 0;
+  width: 20%;
+  height: 100%;
+  box-shadow: -6px 0 6px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.main-network-nodes {
+  width: 70%;
+}
+
+.example-sidenav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 100vh;
+  background: gray;
 }

@@ -9,15 +9,31 @@
 
 <div class="main">
   <div class="main-network" *ngIf="nodes && nodes.length > 0">
-    <mat-grid-list cols="4" rowHeight="105px">
-      <mat-grid-tile
-        *ngFor="let node of nodes"
-        [colspan]="node.cols"
-        [rowspan]="2"
+    <div class="main-network-miner-feed"></div>
+    <div class="main-network-nodes">
+      <mat-grid-list cols="4" rowHeight="105px">
+        <mat-grid-tile
+          *ngFor="let node of nodes"
+          [colspan]="node.cols"
+          [rowspan]="2"
+        >
+          <app-node
+            [name]="node.name"
+            [nodes]="nodes"
+            (mining)="onMinerStart($event)"
+          ></app-node>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+    <div class="main-network-blockchain-feed">
+      <div
+        class="main-network-blockchain-feed-block"
+        *ngFor="let block of blockchain"
       >
-        <app-node [name]="node.name" [nodes]="nodes"></app-node>
-      </mat-grid-tile>
-    </mat-grid-list>
+        {{ block.number }}
+        <app-block [block]="block"></app-block>
+      </div>
+    </div>
   </div>
   <div *ngIf="!nodes || nodes.length === 0">
     <ng-container *ngIf="loading">

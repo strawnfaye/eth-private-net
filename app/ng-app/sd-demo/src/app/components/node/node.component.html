@@ -28,7 +28,10 @@
         </button>
       </div>
       <div class="node-buttons-button u-default-margin">
-        <button mat-mini-fab color="primary" (click)="printBlocks()">
+        <p-overlayPanel #op>
+          Content hello I'm an overlay panel HELLOOOOO
+        </p-overlayPanel>
+        <button mat-mini-fab color="primary" (click)="op.show($event)">
           <mat-icon>account_balance_wallet</mat-icon>
         </button>
       </div>

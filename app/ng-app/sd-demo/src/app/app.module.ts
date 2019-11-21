@@ -17,14 +17,21 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+
 import { TransactionDialogComponent } from './components/transaction-dialog/transaction-dialog.component';
+import { BlockComponent } from './components/block/block.component';
+import { MinerBlurbComponent } from './components/miner-blurb/miner-blurb.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NodeComponent,
     NetworkComponent,
-    TransactionDialogComponent
+    TransactionDialogComponent,
+    BlockComponent,
+    MinerBlurbComponent
   ],
   entryComponents: [TransactionDialogComponent],
   imports: [
@@ -39,7 +46,9 @@ import { TransactionDialogComponent } from './components/transaction-dialog/tran
     MatMenuModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSidenavModule,
+    OverlayPanelModule
   ],
   providers: [NodeService],
   bootstrap: [AppComponent]

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "Cleaning old logs"
+echo " " > ./bob/console.log
+echo " " > ./alice/console.log
+echo " " > ./lily/console.log
+echo " " > ./ross/console.log
+echo " " > ./zach/console.log

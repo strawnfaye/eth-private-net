@@ -21,6 +21,7 @@ export interface DialogData {
 })
 export class TransactionDialogComponent implements OnInit {
   nodeList: string[] = [];
+  sendFromNode: Node;
 
   constructor(
     public dialogRef: MatDialogRef<NetworkComponent>,
@@ -28,7 +29,11 @@ export class TransactionDialogComponent implements OnInit {
   ) {
     console.log('dialog data: ', data);
     data.nodes.forEach(node => {
-      this.nodeList.push(node.name);
+      if (node.name !== data.sendFrom) {
+        this.nodeList.push(node.name);
+      } else {
+        this.sendFromNode = node;
+      }
     });
   }
 

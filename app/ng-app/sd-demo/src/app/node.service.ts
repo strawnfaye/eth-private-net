@@ -3,7 +3,21 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 export class Node {
-  constructor(public name: string, public cols: number) {}
+  constructor(
+    public name: string,
+    public cols: number,
+    public balance: number
+  ) {}
+}
+
+export class Block {
+  constructor(
+    public number: number,
+    public miner: string,
+    public transactions: any[],
+    public hash: string,
+    public parentHash: string
+  ) {}
 }
 
 @Injectable()
@@ -27,7 +41,23 @@ export class NodeService {
     return this.http.get<any>(`http://localhost:8000/api/sendTx/${from}/${to}`);
   }
 
-  printBlocks(name: string): Observable<any> {
-    return this.http.get<any>(`http://localhost:8000/api/printBlocks/${name}`);
+  getBlocks(miner: string, atBlock: number): Observable<any> {
+    return this.http.get<any>(
+      `http://localhost:8000/api/getBlocks/${miner}/${atBlock}`
+    );
+  }
+
+  getMinerLogs(miner: string, line: number): Observable<any> {
+    return this.http.get<any>(
+      `http://localhost:8000/api/getMinerLogs/${miner}/${line}`
+    );
+  }
+
+  getBalance(name: string): Observable<any> {
+    return this.http.get<any>(`http://localhost:8000/api/getBalance/${name}`);
+  }
+
+  getMiner(): Observable<any> {
+    return this.http.get<any>(`http://localhost:8000/api/getMiner`);
   }
 }
