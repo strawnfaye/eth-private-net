@@ -1,1 +1,8 @@
-<p>miner-blurb works!</p>
+<div class="blurb">
+  <div class="blurb-header">
+    {{ _log.timeStamp.toLocaleString('en-US', { timeZone: 'UTC' }) }}
+  </div>
+  <div class="blurb-body">
+    {{ _log.message }}
+  </div>
+</div>

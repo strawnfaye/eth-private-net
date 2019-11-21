@@ -20,6 +20,14 @@ export class Block {
   ) {}
 }
 
+export class Log {
+  constructor(
+    public miner: string,
+    public message: string,
+    public timeStamp: Date
+  ) {}
+}
+
 @Injectable()
 export class NodeService {
   constructor(private http: HttpClient) {}

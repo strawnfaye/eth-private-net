@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NodeService, Node, Block } from '../../node.service';
+import { NodeService, Node, Block, Log } from '../../node.service';
 
 @Component({
   selector: 'app-network',
@@ -12,6 +12,7 @@ export class NetworkComponent implements OnInit {
   public blockchain: Block[] = [];
   public miner: string;
   public namesMap = new Map();
+  public minerLogs: Log[] = [];
 
   constructor(private nodeService: NodeService) {}
 
@@ -41,27 +42,8 @@ export class NetworkComponent implements OnInit {
         if (miner) {
           console.log('active miner: ', miner);
           this.miner = miner;
-          this.nodeService
-            .getBlocks(miner, this.blockchain.length)
-            .subscribe(latestBlocks => {
-              latestBlocks.forEach(block => {
-                const addr = block.miner.toLowerCase();
-                console.log(addr);
-                console.log(
-                  '0x8691bf25ce4a56b15c1f99c944dc948269031801' === addr
-                );
-                const miner = this.namesMap.get(addr);
-                this.blockchain.push(
-                  new Block(
-                    block.number,
-                    miner,
-                    block.transactions,
-                    block.hash,
-                    block.parentHash
-                  )
-                );
-              });
-            });
+          setInterval(this.getBlockchain.bind(this), 8000);
+          setInterval(this.getMinerLogs.bind(this), 8000);
         }
       });
     });
@@ -103,6 +85,7 @@ export class NetworkComponent implements OnInit {
   onMinerStart(name: string) {
     this.miner = name;
     setInterval(this.getBlockchain.bind(this), 8000);
+    setInterval(this.getMinerLogs.bind(this), 8000);
   }
 
   getBlockchain() {
@@ -125,6 +108,23 @@ export class NetworkComponent implements OnInit {
             )
           );
         });
+      });
+  }
+
+  getMinerLogs() {
+    this.nodeService
+      .getMinerLogs(this.miner, this.minerLogs.length)
+      .subscribe(res => {
+        res.forEach(line => {
+          let res = line.split('[', 2);
+          let dateAndMessage = res[1].split(']', 2);
+          let dateString = dateAndMessage[0];
+          let message = dateAndMessage[1].trim().split('   ', 1)[0];
+          let dateParts = dateString.split('|', 2);
+          let date = dateParts[0].concat('-19 ' + dateParts[1]);
+          this.minerLogs.push(new Log(this.miner, message, new Date(date)));
+        });
+        console.log(this.minerLogs);
       });
   }
 }

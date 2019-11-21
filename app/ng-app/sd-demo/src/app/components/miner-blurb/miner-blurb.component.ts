@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Log } from '../../node.service';
 
 @Component({
   selector: 'app-miner-blurb',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./miner-blurb.component.scss']
 })
 export class MinerBlurbComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  @Input() set log(log: Log) {
+    this._log = log;
   }
 
+  public _log: Log;
+
+  constructor() {}
+
+  ngOnInit() {}
 }

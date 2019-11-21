@@ -51,14 +51,7 @@ export class NodeComponent implements OnInit {
     this.nodeService.sendTx(this._name, to).subscribe();
   }
 
-  printBlocks(): void {
-    this.nodeService.getMinerLogs(this._name, 0).subscribe(res => {
-      res.forEach(line => {
-        this.minerLogs.push(line);
-      });
-      console.log(this.minerLogs);
-    });
-  }
+  printBlocks(): void {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(TransactionDialogComponent, {

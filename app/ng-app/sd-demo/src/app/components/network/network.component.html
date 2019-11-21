@@ -9,7 +9,11 @@
 
 <div class="main">
   <div class="main-network" *ngIf="nodes && nodes.length > 0">
-    <div class="main-network-miner-feed"></div>
+    <div class="main-network-miner-feed">
+      <div class="main-network-miner-feed-blurb" *ngFor="let log of minerLogs">
+        <app-miner-blurb [log]="log"></app-miner-blurb>
+      </div>
+    </div>
     <div class="main-network-nodes">
       <mat-grid-list cols="4" rowHeight="105px">
         <mat-grid-tile
@@ -30,7 +34,10 @@
         class="main-network-blockchain-feed-block"
         *ngFor="let block of blockchain"
       >
-        {{ block.number }}
+        <div class="main-network-blockchain-feed-block-number">
+          {{ block.number }}
+        </div>
+
         <app-block [block]="block"></app-block>
       </div>
     </div>

@@ -394,8 +394,10 @@ function getMinerLogs(miner, startLine) {
     myInterface
       .on('line', function(line) {
         lineno++;
-        if (line.includes('Successfully sealed new block')) {
-          lines.push(line);
+        if (lineno > startLine) {
+          if (line.includes('Successfully sealed new block')) {
+            lines.push(line);
+          }
         }
       })
       .on('close', function(line) {
