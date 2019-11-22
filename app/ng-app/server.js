@@ -163,10 +163,11 @@ app.route('/api/getMinerLogs/:miner/:line').get((req, res) => {
 
 // Sends an arbitrary transaction from the given "from" node to the
 // given "to" node.
-app.route('/api/sendTx/:from/:to').get((req, res) => {
+app.route('/api/sendTx/:from/:to/:amount').get((req, res) => {
   const from = req.params['from'];
   const to = req.params['to'];
-  sendTransaction(to, from);
+  const amount = req.params['amount'];
+  sendTransaction(to, from, amount);
   res.send(true);
 });
 
@@ -326,18 +327,36 @@ function checkIfMining(name) {
  * @param {string} to the name of the node whose account will receive the tx.
  * @param {string} from the name of the node whose account is sending the tx.
  */
-function sendTransaction(to, from) {
-  const sendTx = spawn(
-    `./eth-private-net sendTransaction ${from.toLowerCase()} ${to.toLowerCase()}`,
-    [],
-    {
-      shell: true,
-      cwd: path
-    }
-  );
-  sendTx.stdout.on('data', data => {
-    console.log(`stdout for sendTx ${to} ${from}: ${data}`);
-  });
+function sendTransaction(to, from, amount) {
+  var fromAddress = addressMap.get(from);
+  var toAddress = addressMap.get(to);
+  web3Refs
+    .get(from)
+    .eth.personal.unlockAccount(fromAddress, 'foobar123', 10000)
+    .then(result => {
+      web3Refs
+        .get(from)
+        .eth.sendTransaction({
+          from: fromAddress,
+          to: toAddress,
+          value: amount
+        })
+        .then(receipt => {
+          console.log('receipt: ', receipt);
+        });
+    });
+
+  // const sendTx = spawn(
+  //   `./eth-private-net sendTransaction ${from.toLowerCase()} ${to.toLowerCase()}`,
+  //   [],
+  //   {
+  //     shell: true,
+  //     cwd: path
+  //   }
+  // );
+  // sendTx.stdout.on('data', data => {
+  //   console.log(`stdout for sendTx ${to} ${from}: ${data}`);
+  // });
 }
 
 /**

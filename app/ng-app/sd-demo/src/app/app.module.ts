@@ -7,6 +7,7 @@ import { NetworkComponent } from './components/network/network.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NodeService } from './node.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,6 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { MatInputModule } from '@angular/material/input';
 
 import { TransactionDialogComponent } from './components/transaction-dialog/transaction-dialog.component';
 import { BlockComponent } from './components/block/block.component';
@@ -48,7 +50,9 @@ import { MinerBlurbComponent } from './components/miner-blurb/miner-blurb.compon
     MatFormFieldModule,
     MatSelectModule,
     MatSidenavModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    MatInputModule,
+    FormsModule
   ],
   providers: [NodeService],
   bootstrap: [AppComponent]

@@ -47,8 +47,8 @@ export class NodeComponent implements OnInit {
     // this.nodeService.getMinerLogs(this._name, 0).subscribe();
   }
 
-  sendTx(to: string) {
-    this.nodeService.sendTx(this._name, to).subscribe();
+  sendTx(to: string, amount: number) {
+    this.nodeService.sendTx(this._name, to, amount).subscribe();
   }
 
   printBlocks(): void {}
@@ -66,9 +66,10 @@ export class NodeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed. Result: ', result);
-      this.sendTo = result;
+      this.sendTo = result.sendTo;
+      this.amount = result.amount;
       if (result) {
-        this.sendTx(this.sendTo);
+        this.sendTx(this.sendTo, this.amount);
       }
     });
   }

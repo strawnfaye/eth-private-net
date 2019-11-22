@@ -22,6 +22,8 @@ export interface DialogData {
 export class TransactionDialogComponent implements OnInit {
   nodeList: string[] = [];
   sendFromNode: Node;
+  sendToNode: string;
+  amount: number = 0;
 
   constructor(
     public dialogRef: MatDialogRef<NetworkComponent>,

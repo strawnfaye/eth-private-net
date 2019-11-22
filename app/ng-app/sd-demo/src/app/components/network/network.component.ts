@@ -42,6 +42,8 @@ export class NetworkComponent implements OnInit {
         if (miner) {
           console.log('active miner: ', miner);
           this.miner = miner;
+          this.getBlockchain();
+          this.getMinerLogs();
           setInterval(this.getBlockchain.bind(this), 8000);
           setInterval(this.getMinerLogs.bind(this), 8000);
         }
