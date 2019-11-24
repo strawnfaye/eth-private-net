@@ -1,21 +1,38 @@
 .blurb {
   width: 230px;
-  height: 50px;
+  height: 60px;
   background-color: #eceff1;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  padding: 10px;
   margin: 10px;
+  margin-bottom: 5px;
 }
 
 .blurb-header {
   display: flex;
-  flex-direction: column;
-  color: #9e9e9e;
+  flex-direction: row;
   font-size: 10px;
+  padding: 5px;
+}
+
+.blurb-header-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 3px;
+  margin-bottom: 2px;
+}
+
+.blurb-header-text-tag {
+  color: #9e9e9e;
+}
+
+.blurb-header-text-date {
+  color: #bdbdbd;
 }
 
 .blurb-body {
   font-size: 12px;
+  padding-left: 10px;
+  padding-bottom: 5px;
 }

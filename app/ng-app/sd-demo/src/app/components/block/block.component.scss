@@ -3,8 +3,8 @@
   flex-direction: column;
   justify-content: space-between;
   margin: 10px;
-  width: 150px;
-  height: 100px;
+  width: 190px;
+  height: 140px;
   border-radius: 5px;
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.2);
 }
@@ -22,4 +22,13 @@
 .block-body {
   padding: 10px;
   font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.block-body-miner-icon {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }

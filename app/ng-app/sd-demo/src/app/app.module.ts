@@ -1,30 +1,31 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { AppComponent } from './app.component';
-import { NodeComponent } from './components/node/node.component';
-import { NetworkComponent } from './components/network/network.component';
-import { HttpClientModule } from '@angular/common/http';
-import { NodeService } from './node.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { AppComponent } from "./app.component";
+import { NodeComponent } from "./components/node/node.component";
+import { NetworkComponent } from "./components/network/network.component";
+import { HttpClientModule } from "@angular/common/http";
+import { NodeService } from "./node.service";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { FormsModule } from "@angular/forms";
 
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatIconModule } from '@angular/material/icon';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { MatInputModule } from '@angular/material/input';
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatButtonModule } from "@angular/material/button";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatIconModule } from "@angular/material/icon";
+import { MatGridListModule } from "@angular/material/grid-list";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { OverlayPanelModule } from "primeng/overlaypanel";
+import { MatInputModule } from "@angular/material/input";
+import { PanelModule } from "primeng/panel";
 
-import { TransactionDialogComponent } from './components/transaction-dialog/transaction-dialog.component';
-import { BlockComponent } from './components/block/block.component';
-import { MinerBlurbComponent } from './components/miner-blurb/miner-blurb.component';
+import { TransactionDialogComponent } from "./components/transaction-dialog/transaction-dialog.component";
+import { BlockComponent } from "./components/block/block.component";
+import { MinerBlurbComponent } from "./components/miner-blurb/miner-blurb.component";
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { MinerBlurbComponent } from './components/miner-blurb/miner-blurb.compon
     MatSidenavModule,
     OverlayPanelModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    PanelModule
   ],
   providers: [NodeService],
   bootstrap: [AppComponent]

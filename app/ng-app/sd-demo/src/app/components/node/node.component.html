@@ -42,9 +42,16 @@
     </ng-container>
     <div class="node-buttons">
       <div class="node-buttons-button u-default-margin">
-        <button mat-mini-fab color="primary" (click)="startMiner()">
-          <mat-icon>memory</mat-icon>
-        </button>
+        <ng-container *ngIf="!isMining">
+          <button mat-mini-fab color="primary" (click)="startMiner()">
+            <mat-icon>memory</mat-icon>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="isMining">
+          <button mat-mini-fab color="primary" (click)="stopMiner()">
+            <mat-icon>stop</mat-icon>
+          </button>
+        </ng-container>
       </div>
       <div class="node-buttons-button u-default-margin">
         <button mat-mini-fab color="primary" (click)="openDialog()">

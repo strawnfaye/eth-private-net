@@ -1,16 +1,16 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NodeService, Node } from '../../node.service';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { NodeService, Node } from "../../node.service";
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA
-} from '@angular/material/dialog';
-import { TransactionDialogComponent } from '../transaction-dialog/transaction-dialog.component';
+} from "@angular/material/dialog";
+import { TransactionDialogComponent } from "../transaction-dialog/transaction-dialog.component";
 
 @Component({
-  selector: 'app-node',
-  templateUrl: './node.component.html',
-  styleUrls: ['./node.component.scss', '../../app.component.scss']
+  selector: "app-node",
+  templateUrl: "./node.component.html",
+  styleUrls: ["./node.component.scss", "../../app.component.scss"]
 })
 export class NodeComponent implements OnInit {
   @Input()
@@ -24,6 +24,9 @@ export class NodeComponent implements OnInit {
   @Input() set nodes(nodes: Node[]) {
     this._nodes = nodes;
   }
+  @Input() set canMine(canMine: boolean) {
+    this._canMine = canMine;
+  }
   @Output() mining = new EventEmitter<string>();
 
   public _name: string;
@@ -32,6 +35,8 @@ export class NodeComponent implements OnInit {
   public accountBalance;
   public txHistory: any[] = [];
   public minerLogs: string[] = [];
+  public _canMine: boolean;
+  public isMining: boolean = false;
   sendTo: string;
   amount: number;
 
@@ -41,10 +46,18 @@ export class NodeComponent implements OnInit {
 
   startMiner(): void {
     this.nodeService.startMiner(this._name).subscribe(result => {
-      console.log('about to emit event saying', this._name, 'is mining');
+      console.log(this._name, "is mining");
       this.mining.emit(this._name);
+      this.isMining = true;
     });
-    // this.nodeService.getMinerLogs(this._name, 0).subscribe();
+  }
+
+  stopMiner(): void {
+    this.nodeService.stopMiner(this._name).subscribe(result => {
+      console.log(this._name, "stopped mining");
+      this.mining.emit(undefined);
+      this.isMining = false;
+    });
   }
 
   sendTx(to: string, amount: number) {
@@ -55,7 +68,7 @@ export class NodeComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(TransactionDialogComponent, {
-      width: '250px',
+      width: "250px",
       data: {
         nodes: this._nodes,
         sendFrom: this._name,
@@ -65,7 +78,7 @@ export class NodeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed. Result: ', result);
+      console.log("The dialog was closed. Result: ", result);
       this.sendTo = result.sendTo;
       this.amount = result.amount;
       if (result) {

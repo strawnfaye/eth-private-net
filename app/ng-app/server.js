@@ -144,6 +144,19 @@ app.route('/api/startMiner/:name').get((req, res) => {
   }, 2000);
 });
 
+// Starts the mining process for the node with the given name.
+app.route('/api/stopMiner/:name').get((req, res) => {
+  const temp = req.params['name'];
+  console.log('stopMiner called for: ', temp);
+  stopMinerProcess(temp);
+  setTimeout(function() {
+    Promise.all([checkIfMining(temp)]).then(() => {
+      activeMiner = null;
+      res.send(true);
+    });
+  }, 2000);
+});
+
 /**
  * Invoked when frontend service makes an http.get() call to
  * this route. Retrieves a list of relevant logs statements from
@@ -176,10 +189,7 @@ app.route('/api/sendTx/:from/:to/:amount').get((req, res) => {
 app.route('/api/getBlocks/:miner/:atBlock').get((req, res) => {
   const miner = req.params['miner'];
   const fromBlock = req.params['atBlock'];
-  // console.log('miner in .get: ', miner);
-  // console.log('fromBlock in .get: ', fromBlock);
   updateBlocks(miner, fromBlock).then(result => {
-    // console.log('result', result);
     res.send(result);
   });
 });
@@ -231,6 +241,24 @@ function startMinerProcess(name) {
   );
   start.stdout.on('data', data => {
     console.log(`stdout for startMiner ${name}: ${data}`);
+  });
+}
+
+/**
+ * Runs bash scripts on the private net to stop the miner for a given
+ * node
+ *
+ * @param {string} name the name of the node to quit the mining process
+ * for.
+ */
+function stopMinerProcess(name) {
+  console.log('stopping miner process for: ', name);
+  const stop = spawn(`./eth-private-net stopMiner ${name.toLowerCase()}`, [], {
+    shell: true,
+    cwd: path
+  });
+  stop.stdout.on('data', data => {
+    console.log(`stdout for stopMiner ${name}: ${data}`);
   });
 }
 
@@ -376,8 +404,8 @@ function updateBlocks(miner, fromBlock) {
       .get(miner)
       .eth.getBlockNumber()
       .then(toBlock => {
-        for (let i = fromBlock + 1; i <= toBlock; i++) {
-          promises.push(web3Refs.get(miner).eth.getBlock(i));
+        for (let i = Number(fromBlock) + 1; i <= Number(toBlock); i++) {
+          promises.push(web3Refs.get(miner).eth.getBlock(i, true));
         }
         Promise.all(promises).then(results => {
           results.forEach(result => {
@@ -414,7 +442,13 @@ function getMinerLogs(miner, startLine) {
       .on('line', function(line) {
         lineno++;
         if (lineno > startLine) {
-          if (line.includes('Successfully sealed new block')) {
+          if (
+            line.includes('Starting parallel committing') ||
+            line.includes('Attempting commit of transaction from sender') ||
+            line.includes('Attempting commit of transaction from sender') ||
+            line.includes('mined potential block') ||
+            line.includes('block reached canonical chain')
+          ) {
             lines.push(line);
           }
         }

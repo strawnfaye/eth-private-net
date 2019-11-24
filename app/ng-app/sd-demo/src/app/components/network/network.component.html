@@ -10,8 +10,16 @@
 <div class="main">
   <div class="main-network" *ngIf="nodes && nodes.length > 0">
     <div class="main-network-miner-feed">
-      <div class="main-network-miner-feed-blurb" *ngFor="let log of minerLogs">
-        <app-miner-blurb [log]="log"></app-miner-blurb>
+      <div class="main-network-miner-feed-header">
+        <h4>Miner Feed</h4>
+      </div>
+      <div class="main-network-miner-feed-body">
+        <div
+          class="main-network-miner-feed-blurb"
+          *ngFor="let log of minerLogs"
+        >
+          <app-miner-blurb [log]="log"></app-miner-blurb>
+        </div>
       </div>
     </div>
     <div class="main-network-nodes">
@@ -23,21 +31,30 @@
         >
           <app-node
             [name]="node.name"
+            [canMine]="!miner || miner === node.name"
             [nodes]="nodes"
-            (mining)="onMinerStart($event)"
+            (mining)="onMinerChange($event)"
           ></app-node>
         </mat-grid-tile>
       </mat-grid-list>
     </div>
     <div class="main-network-blockchain-feed">
-      <div
-        class="main-network-blockchain-feed-block"
-        *ngFor="let block of blockchain"
-      >
-        <div class="main-network-blockchain-feed-block-number">
-          {{ block.number }}
+      <div class="main-network-blockchain-feed-header">
+        <h4>Blockchain</h4>
+      </div>
+      <div class="main-network-blockchain-feed-body">
+        <div
+          class="main-network-blockchain-feed-block"
+          *ngFor="let block of blockchain"
+        >
+          <div class="main-network-blockchain-feed-block-number">
+            {{ block.number }}
+          </div>
+          <div class="main-network-blockchain-feed-block-body">
+            <app-block [block]="block"></app-block>
+            <div class="main-network-blockchain-feed-block-body-line"></div>
+          </div>
         </div>
-        <app-block [block]="block"></app-block>
       </div>
     </div>
   </div>
