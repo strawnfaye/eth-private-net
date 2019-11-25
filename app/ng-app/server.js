@@ -180,8 +180,9 @@ app.route('/api/sendTx/:from/:to/:amount').get((req, res) => {
   const from = req.params['from'];
   const to = req.params['to'];
   const amount = req.params['amount'];
-  sendTransaction(to, from, amount);
-  res.send(true);
+  sendTransaction(to, from, amount).then(receipt => {
+    res.send(receipt);
+  });
 });
 
 // Sends recent blocks mined by the given node "miner" since the given
@@ -356,35 +357,27 @@ function checkIfMining(name) {
  * @param {string} from the name of the node whose account is sending the tx.
  */
 function sendTransaction(to, from, amount) {
-  var fromAddress = addressMap.get(from);
-  var toAddress = addressMap.get(to);
-  web3Refs
-    .get(from)
-    .eth.personal.unlockAccount(fromAddress, 'foobar123', 10000)
-    .then(result => {
-      web3Refs
-        .get(from)
-        .eth.sendTransaction({
-          from: fromAddress,
-          to: toAddress,
-          value: amount
-        })
-        .then(receipt => {
-          console.log('receipt: ', receipt);
-        });
-    });
-
-  // const sendTx = spawn(
-  //   `./eth-private-net sendTransaction ${from.toLowerCase()} ${to.toLowerCase()}`,
-  //   [],
-  //   {
-  //     shell: true,
-  //     cwd: path
-  //   }
-  // );
-  // sendTx.stdout.on('data', data => {
-  //   console.log(`stdout for sendTx ${to} ${from}: ${data}`);
-  // });
+  return new Promise(function(resolve, reject) {
+    var fromAddress = addressMap.get(from);
+    var toAddress = addressMap.get(to);
+    web3Refs
+      .get(from)
+      .eth.personal.unlockAccount(fromAddress, 'foobar123', 10000)
+      .then(result => {
+        console.log('sending tx from', from, 'to', to);
+        web3Refs
+          .get(from)
+          .eth.sendTransaction({
+            from: fromAddress,
+            to: toAddress,
+            value: amount
+          })
+          .then(receipt => {
+            console.log('receipt: ', receipt);
+            resolve(receipt);
+          });
+      });
+  });
 }
 
 /**
@@ -454,6 +447,7 @@ function getMinerLogs(miner, startLine) {
         }
       })
       .on('close', function(line) {
+        cleanLogs();
         resolve(lines);
       });
   });

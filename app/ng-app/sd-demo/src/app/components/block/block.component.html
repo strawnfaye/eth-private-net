@@ -46,12 +46,20 @@
       </ng-container>
     </div>
     <div class="block-body-txs">
-      <p-panel header="Transactions" [toggleable]="true" [collapsed]="true">
-        <div class="block-body-txs-tx" *ngFor="let tx of _block.transactions">
-          <p>{{ tx.from }}</p>
-          <p>{{ tx.to }}</p>
-        </div>
-      </p-panel>
+      <ng-container
+        *ngIf="_block.transactions && _block.transactions.length > 0"
+      >
+        <p-panel header="Transactions" [toggleable]="true" [collapsed]="true">
+          <div class="block-body-txs-tx" *ngFor="let tx of _block.transactions">
+            From: {{ tx.from }} To: {{ tx.to }}
+          </div>
+        </p-panel>
+      </ng-container>
+      <ng-container
+        *ngIf="!_block.transactions || _block.transactions.length === 0"
+      >
+        (Block is empty)
+      </ng-container>
     </div>
   </div>
   <div class="block-hash-tail">

@@ -26,7 +26,6 @@ export class NetworkComponent implements OnInit {
     this.namesMap.set("0xa9284bd5eec49c7a25037ed745089aee7b1ba25f", "Ross");
 
     this.nodeService.getAllNodes().subscribe(nodes => {
-      console.log(nodes);
       nodes.forEach(node => {
         if (this.findIndex(this.nodes, node) === -1) {
           this.nodeService.getBalance(node).subscribe(balance => {
@@ -66,7 +65,6 @@ export class NetworkComponent implements OnInit {
             this.nodes.push(temp);
           });
         }
-        console.log(this.nodes);
       });
       this.loading = false;
     });
@@ -103,14 +101,14 @@ export class NetworkComponent implements OnInit {
           const miner = this.namesMap.get(addr);
           let txs = [];
           block.transactions.forEach(tx => {
-            console.log(tx);
-            txs.push(
-              new Transaction(
-                this.namesMap.get(tx.from),
-                this.namesMap.get(tx.to),
-                tx.hash
-              )
+            const temp = new Transaction(
+              this.namesMap.get(tx.from.toLowerCase()),
+              this.namesMap.get(tx.to.toLowerCase()),
+              tx.hash,
+              tx.value
             );
+            console.log(temp);
+            txs.push(temp);
           });
           this.blockchain.push(
             new Block(block.number, miner, txs, block.hash, block.parentHash)

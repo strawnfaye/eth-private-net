@@ -6,11 +6,13 @@ import {
   MAT_DIALOG_DATA
 } from "@angular/material/dialog";
 import { TransactionDialogComponent } from "../transaction-dialog/transaction-dialog.component";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: "app-node",
   templateUrl: "./node.component.html",
-  styleUrls: ["./node.component.scss", "../../app.component.scss"]
+  styleUrls: ["./node.component.scss", "../../app.component.scss"],
+  providers: [MessageService]
 })
 export class NodeComponent implements OnInit {
   @Input()
@@ -40,7 +42,11 @@ export class NodeComponent implements OnInit {
   sendTo: string;
   amount: number;
 
-  constructor(private nodeService: NodeService, public dialog: MatDialog) {}
+  constructor(
+    private nodeService: NodeService,
+    public dialog: MatDialog,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit() {}
 
@@ -49,6 +55,11 @@ export class NodeComponent implements OnInit {
       console.log(this._name, "is mining");
       this.mining.emit(this._name);
       this.isMining = true;
+      this.messageService.add({
+        severity: "success",
+        summary: "Started Mining",
+        detail: `${this._name}'s miner is running.`
+      });
     });
   }
 
@@ -57,11 +68,31 @@ export class NodeComponent implements OnInit {
       console.log(this._name, "stopped mining");
       this.mining.emit(undefined);
       this.isMining = false;
+      this.messageService.add({
+        severity: "success",
+        summary: "Stopped Mining",
+        detail: `${this._name}'s miner is no longer running.`
+      });
     });
   }
 
   sendTx(to: string, amount: number) {
-    this.nodeService.sendTx(this._name, to, amount).subscribe();
+    this.nodeService.sendTx(this._name, to, amount).subscribe(receipt => {
+      console.log(receipt);
+      if (receipt) {
+        this.messageService.add({
+          severity: "success",
+          summary: "Sent Transaction",
+          detail: `Transaction from ${this._name} has been submitted.`
+        });
+      } else {
+        this.messageService.add({
+          severity: "error",
+          summary: "Error Sending Transaction",
+          detail: `${this._name}'s transaction was not sent.`
+        });
+      }
+    });
   }
 
   printBlocks(): void {}

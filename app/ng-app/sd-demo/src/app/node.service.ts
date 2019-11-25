@@ -29,7 +29,12 @@ export class Log {
 }
 
 export class Transaction {
-  constructor(public from: string, public to: string, public hash: string) {}
+  constructor(
+    public from: string,
+    public to: string,
+    public hash: string,
+    public value: number
+  ) {}
 }
 
 @Injectable()
