@@ -98,8 +98,11 @@ export class NodeComponent implements OnInit {
   printBlocks(): void {}
 
   openDialog(): void {
+    this.nodeService.getBalance(this._name).subscribe(balance => {
+      this.accountBalance = balance;
+    });
     const dialogRef = this.dialog.open(TransactionDialogComponent, {
-      width: "250px",
+      width: "350px",
       data: {
         nodes: this._nodes,
         sendFrom: this._name,

@@ -23,6 +23,7 @@ import { OverlayPanelModule } from "primeng/overlaypanel";
 import { MatInputModule } from "@angular/material/input";
 import { PanelModule } from "primeng/panel";
 import { ToastModule } from "primeng/toast";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 import { TransactionDialogComponent } from "./components/transaction-dialog/transaction-dialog.component";
 import { BlockComponent } from "./components/block/block.component";
@@ -56,7 +57,8 @@ import { MinerBlurbComponent } from "./components/miner-blurb/miner-blurb.compon
     MatInputModule,
     FormsModule,
     PanelModule,
-    ToastModule
+    ToastModule,
+    MatTooltipModule
   ],
   providers: [NodeService],
   bootstrap: [AppComponent]

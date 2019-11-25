@@ -64,6 +64,7 @@ export class NetworkComponent implements OnInit {
             const temp = new Node(node, cols, balance);
             this.nodes.push(temp);
           });
+          this.nodeService.stopMiner(node).subscribe();
         }
       });
       this.loading = false;
@@ -127,6 +128,7 @@ export class NetworkComponent implements OnInit {
           let dateString = dateAndMessage[0];
           let message = dateAndMessage[1].trim().split("   ", 3)[0] + "!";
           let dateParts = dateString.split("|", 2);
+          console.log(dateParts);
           let date = dateParts[0].concat("-19 " + dateParts[1]);
           this.minerLogs.push(new Log(this.miner, message, new Date(date)));
         });

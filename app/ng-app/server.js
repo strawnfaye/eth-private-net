@@ -133,9 +133,25 @@ app.route('/api/getMiner').get((req, res) => {
 
 // Starts the mining process for the node with the given name.
 app.route('/api/startMiner/:name').get((req, res) => {
+  web3Refs.forEach((ref, name) => {
+    ref.eth.net.getPeerCount().then(result => {
+      console.log('Peer count for', name, result);
+    });
+    ref.eth.net.isListening().then(result => {
+      console.log('isListening for', name, result);
+    });
+  });
   const temp = req.params['name'];
   console.log('startMiner called for: ', temp);
   startMinerProcess(temp);
+  var subscription = web3Refs
+    .get(temp)
+    .eth.subscribe('pendingTransactions', function(error, result) {
+      if (!error) console.log('sub result: ', result);
+    })
+    .on('data', function(transaction) {
+      console.log('sub tx: ', transaction);
+    });
   setTimeout(function() {
     Promise.all([checkIfMining(temp)]).then(() => {
       activeMiner = temp;
@@ -313,9 +329,9 @@ function connectToNode(name) {
 function connectPeers() {
   console.log('Connecting all peers...');
   for (let i = 0; i < nodeNames.length - 1; i++) {
-    let peerA = nodeNames[i];
+    let peerA = nodeNames[i].toLowerCase();
     for (let j = 1; j < nodeNames.length; j++) {
-      let peerB = nodeNames[j];
+      let peerB = nodeNames[j].toLowerCase();
       const connect = spawn(`./eth-private-net connect ${peerA} ${peerB}`, [], {
         shell: true,
         cwd: path

@@ -4,44 +4,45 @@
   </div>
   <div class="block-body">
     <div class="block-body-miner-icon">
+      <div class="block-body-miner-icon-tag">Mined by {{ _block.miner }}</div>
       <ng-container *ngIf="_block.miner === 'Bob'">
         <img
           src="assets/flat_avatar_faye.png"
           alt="Faye Avatar"
-          width="25"
-          height="25"
+          width="30"
+          height="30"
         />
       </ng-container>
       <ng-container *ngIf="_block.miner === 'Alice'">
         <img
           src="assets/flat_avatar_sam.png"
           alt="Sam Avatar"
-          width="25"
-          height="25"
+          width="30"
+          height="30"
         />
       </ng-container>
       <ng-container *ngIf="_block.miner === 'Lily'">
         <img
           src="assets/flat_avatar_ryan.png"
           alt="Ryan Avatar"
-          width="25"
-          height="25"
+          width="30"
+          height="30"
         />
       </ng-container>
       <ng-container *ngIf="_block.miner === 'Ross'">
         <img
           src="assets/flat_avatar_ross.png"
           alt="Ross Avatar"
-          width="25"
-          height="25"
+          width="30"
+          height="30"
         />
       </ng-container>
       <ng-container *ngIf="_block.miner === 'Zach'">
         <img
           src="assets/flat_avatar_zach.png"
           alt="Zach Avatar"
-          width="25"
-          height="25"
+          width="30"
+          height="30"
         />
       </ng-container>
     </div>
@@ -51,14 +52,16 @@
       >
         <p-panel header="Transactions" [toggleable]="true" [collapsed]="true">
           <div class="block-body-txs-tx" *ngFor="let tx of _block.transactions">
-            From: {{ tx.from }} To: {{ tx.to }}
+            <div class="block-body-txs-tx-data">From: {{ tx.from }}</div>
+            <div class="block-body-txs-tx-data">To: {{ tx.to }}</div>
+            <div class="block-body-txs-tx-data">Amount: {{ tx.value }}</div>
           </div>
         </p-panel>
       </ng-container>
       <ng-container
         *ngIf="!_block.transactions || _block.transactions.length === 0"
       >
-        (Block is empty)
+        <p>(No transactions)</p>
       </ng-container>
     </div>
   </div>

@@ -1,5 +1,8 @@
 <div class="node">
   <div class="node-main">
+    <div class="node-name">
+      {{ _name }}
+    </div>
     <ng-container *ngIf="_name === 'Bob'">
       <img
         src="assets/flat_avatar_faye.png"
@@ -43,25 +46,40 @@
     <div class="node-buttons">
       <div class="node-buttons-button u-default-margin">
         <ng-container *ngIf="!isMining">
-          <button mat-mini-fab color="primary" (click)="startMiner()">
+          <button
+            mat-mini-fab
+            color="primary"
+            matTooltip="Start miner"
+            matTooltipPosition="right"
+            (click)="startMiner()"
+          >
             <mat-icon>memory</mat-icon>
           </button>
         </ng-container>
         <ng-container *ngIf="isMining">
-          <button mat-mini-fab color="primary" (click)="stopMiner()">
+          <button
+            mat-mini-fab
+            color="primary"
+            matTooltip="Stop miner"
+            matTooltipPosition="right"
+            (click)="stopMiner()"
+          >
             <mat-icon>stop</mat-icon>
           </button>
         </ng-container>
       </div>
       <div class="node-buttons-button u-default-margin">
-        <button mat-mini-fab color="primary" (click)="openDialog()">
+        <button
+          mat-mini-fab
+          color="primary"
+          matTooltip="Send transaction"
+          matTooltipPosition="right"
+          (click)="openDialog()"
+        >
           <mat-icon>local_atm</mat-icon>
         </button>
       </div>
     </div>
-  </div>
-  <div class="node-name">
-    {{ _name }}
   </div>
 </div>
 <p-toast></p-toast>
