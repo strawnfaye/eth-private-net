@@ -29,6 +29,9 @@ export class NodeComponent implements OnInit {
   @Input() set canMine(canMine: boolean) {
     this._canMine = canMine;
   }
+  @Input() set node(node: Node) {
+    this._node = node;
+  }
   @Output() mining = new EventEmitter<string>();
 
   public _name: string;
@@ -39,8 +42,10 @@ export class NodeComponent implements OnInit {
   public minerLogs: string[] = [];
   public _canMine: boolean;
   public isMining: boolean = false;
+  public _node: Node;
   sendTo: string;
   amount: number;
+  balanceInterval: any;
 
   constructor(
     private nodeService: NodeService,
@@ -48,7 +53,9 @@ export class NodeComponent implements OnInit {
     private messageService: MessageService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.balanceInterval = setInterval(this.updateBalance.bind(this), 10000);
+  }
 
   startMiner(): void {
     this.nodeService.startMiner(this._name).subscribe(result => {
@@ -95,12 +102,8 @@ export class NodeComponent implements OnInit {
     });
   }
 
-  printBlocks(): void {}
-
   openDialog(): void {
-    this.nodeService.getBalance(this._name).subscribe(balance => {
-      this.accountBalance = balance;
-    });
+    this.updateBalance();
     const dialogRef = this.dialog.open(TransactionDialogComponent, {
       width: "350px",
       data: {
@@ -118,6 +121,13 @@ export class NodeComponent implements OnInit {
       if (result) {
         this.sendTx(this.sendTo, this.amount);
       }
+    });
+  }
+
+  updateBalance(): void {
+    this.nodeService.getBalance(this._name).subscribe(balance => {
+      this._node.balance = balance;
+      console.log("balance for ", this._name, this._node.balance);
     });
   }
 }

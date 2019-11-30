@@ -15,6 +15,7 @@ export class NetworkComponent implements OnInit {
   public minerLogs: Log[] = [];
   public blockInterval: any;
   public logInterval: any;
+  public logLineNumber = 0;
 
   constructor(private nodeService: NodeService) {}
 
@@ -120,17 +121,30 @@ export class NetworkComponent implements OnInit {
 
   getMinerLogs() {
     this.nodeService
-      .getMinerLogs(this.miner, this.minerLogs.length)
+      .getMinerLogs(this.miner, this.logLineNumber)
       .subscribe(res => {
-        res.forEach(line => {
-          let res = line.split("[", 2);
-          let dateAndMessage = res[1].split("]", 2);
+        const lines = res.lines;
+        this.logLineNumber = res.lineno;
+        lines.forEach(line => {
+          let temp = line.split("[", 2);
+          let dateAndMessage = temp[1].split("]", 2);
           let dateString = dateAndMessage[0];
           let message = dateAndMessage[1].trim().split("   ", 3)[0] + "!";
+          let messageOwner = this.miner;
+          if (
+            message.includes("Attempting commit of transaction from sender")
+          ) {
+            const split = message.split("sender");
+            let sender = split[1].split(" in ")[0];
+            sender = this.namesMap.get(sender.trim().toLowerCase());
+            message = split[0] + sender + "!";
+          } else if (message.includes("Verified concurrent history")) {
+            messageOwner = "Tool";
+          }
           let dateParts = dateString.split("|", 2);
           console.log(dateParts);
           let date = dateParts[0].concat("-19 " + dateParts[1]);
-          this.minerLogs.push(new Log(this.miner, message, new Date(date)));
+          this.minerLogs.push(new Log(messageOwner, message, new Date(date)));
         });
       });
   }

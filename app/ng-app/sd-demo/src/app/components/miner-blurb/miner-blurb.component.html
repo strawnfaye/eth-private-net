@@ -1,6 +1,14 @@
 <div class="blurb">
   <div class="blurb-header">
     <div class="blurb-header-avatar">
+      <ng-container *ngIf="_log.miner === 'Tool'">
+        <img
+          src="assets/flat_avatar_robot.png"
+          alt="Correctness Tool Avatar"
+          width="25"
+          height="25"
+        />
+      </ng-container>
       <ng-container *ngIf="_log.miner === 'Bob'">
         <img
           src="assets/flat_avatar_faye.png"
@@ -43,7 +51,12 @@
       </ng-container>
     </div>
     <div class="blurb-header-text">
-      <div class="blurb-header-text-tag">@{{ _log.miner }}TheMiner</div>
+      <ng-container *ngIf="_log.miner === 'Tool'">
+        <div class="blurb-header-text-tag">@CorrectnessTool</div>
+      </ng-container>
+      <ng-container *ngIf="_log.miner !== 'Tool'">
+        <div class="blurb-header-text-tag">@{{ _log.miner }}TheMiner</div>
+      </ng-container>
       <div class="blurb-header-text-date">
         {{ _log.timeStamp.toLocaleString("en-US") }}
       </div>

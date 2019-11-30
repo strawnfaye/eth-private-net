@@ -34,6 +34,8 @@ Author:
 "
 
 # For example, geth --exec "eth.blockNumber" attach prints the current block number of a running geth instance.
+
+
 function exec_on_node() {
   geth --exec="$2" attach ./$1/geth.ipc
 }
@@ -74,9 +76,14 @@ case $CMD in
       lily)
         OFFSET=3
         ;;
-     
+
       zach)
         OFFSET=4
+        ;;
+        
+      ross)
+        OFFSET=5
+        ;;
     esac
 
     PORT=$((BASE_PORT + OFFSET))

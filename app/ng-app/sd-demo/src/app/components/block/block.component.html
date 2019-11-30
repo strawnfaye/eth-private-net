@@ -54,7 +54,7 @@
           <div class="block-body-txs-tx" *ngFor="let tx of _block.transactions">
             <div class="block-body-txs-tx-data">From: {{ tx.from }}</div>
             <div class="block-body-txs-tx-data">To: {{ tx.to }}</div>
-            <div class="block-body-txs-tx-data">Amount: {{ tx.value }}</div>
+            <div class="block-body-txs-tx-data">Amount: {{ tx.value }} Wei</div>
           </div>
         </p-panel>
       </ng-container>

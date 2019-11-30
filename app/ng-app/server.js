@@ -365,12 +365,10 @@ function checkIfMining(name) {
 
 /**
  * Runs a bash script to send a transaction from one node's account to another.
- * NOTE: Currently sends an arbitrary amount.
- * TODO: Modify to use web3 or to include bash script parameter to send a specified
- * amount.
  *
  * @param {string} to the name of the node whose account will receive the tx.
  * @param {string} from the name of the node whose account is sending the tx.
+ * @param {number} amount the amount of Ether to send.
  */
 function sendTransaction(to, from, amount) {
   return new Promise(function(resolve, reject) {
@@ -436,8 +434,8 @@ function updateBlocks(miner, fromBlock) {
  * @param {string} miner the name of the mining node to read the log file for.
  * @param {number} startLine the line number to start reading through in the
  * log file.
- * @returns Promise returns an array of strings containing relevant debug statements
- * from the miner.
+ * @returns Promise returns an object containing an array of strings containing relevant debug
+ * statements from the miner and the last line number read.
  */
 function getMinerLogs(miner, startLine) {
   return new Promise(resolve => {
@@ -456,15 +454,15 @@ function getMinerLogs(miner, startLine) {
             line.includes('Attempting commit of transaction from sender') ||
             line.includes('Attempting commit of transaction from sender') ||
             line.includes('mined potential block') ||
-            line.includes('block reached canonical chain')
+            line.includes('block reached canonical chain') ||
+            line.includes('Verified concurrent history')
           ) {
             lines.push(line);
           }
         }
       })
       .on('close', function(line) {
-        cleanLogs();
-        resolve(lines);
+        resolve({ lines, lineno });
       });
   });
 }

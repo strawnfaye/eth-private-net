@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Send Transaction From {{ sendFromNode.name }}</h1>
 <div mat-dialog-content>
   <p>Who do you want to send Ether to?</p>
-  <p>Account Balance: {{ sendFromNode.balance }}</p>
+  <p>Account Balance: {{ sendFromNode.balance }} Wei</p>
   <form>
     <mat-form-field>
       <mat-label>Select a recipient</mat-label>
@@ -20,6 +20,7 @@
         [ngModelOptions]="{ standalone: true }"
       />
     </mat-form-field>
+    <span>Wei</span>
   </form>
 </div>
 <div mat-dialog-actions>

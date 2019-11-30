@@ -31,6 +31,7 @@
         >
           <app-node
             [name]="node.name"
+            [node]="node"
             [canMine]="!miner || miner === node.name"
             [nodes]="nodes"
             (mining)="onMinerChange($event)"
