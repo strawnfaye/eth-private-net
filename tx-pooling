@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "Queuing transactions:"
+counter=2
+while [ $counter -gt 0 ]
+do
+    ./eth-private-net sendTransaction alice lily
+    ./eth-private-net sendTransaction alice ross
+    ./eth-private-net sendTransaction alice bob
+    ./eth-private-net sendTransaction ross alice
+    ./eth-private-net sendTransaction zach lily
+((counter--))
+done

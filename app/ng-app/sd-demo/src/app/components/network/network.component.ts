@@ -148,4 +148,8 @@ export class NetworkComponent implements OnInit {
         });
       });
   }
+
+  poolTransactions(): void {
+    this.nodeService.poolTransactions().subscribe();
+  }
 }

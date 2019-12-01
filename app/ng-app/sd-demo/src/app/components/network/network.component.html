@@ -1,9 +1,21 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span
-      >Crypto(con)currency: Analyzing Blockchain Correctness With Concurrent
-      Ethereum</span
-    >
+    <div class="toolbar">
+      <span
+        >Crypto(con)currency: Analyzing Blockchain Correctness With Concurrent
+        Ethereum</span
+      >
+      <ng-container *ngIf="nodes && nodes.length > 0">
+        <button
+          mat-raised-button
+          color="accent"
+          [(disabled)]="!miner"
+          (click)="poolTransactions()"
+        >
+          Pool Random Transactions
+        </button>
+      </ng-container>
+    </div>
   </mat-toolbar-row></mat-toolbar
 >
 
@@ -32,7 +44,7 @@
           <app-node
             [name]="node.name"
             [node]="node"
-            [canMine]="!miner || miner === node.name"
+            [(canMine)]="!miner || miner === node.name"
             [nodes]="nodes"
             (mining)="onMinerChange($event)"
           ></app-node>

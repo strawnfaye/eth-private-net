@@ -107,6 +107,12 @@ app.route('/api/startNodes').get((req, res) => {
   }
 });
 
+// Pools a random set of transactions on the private net.
+app.route('/api/poolTransactions').get((req, res) => {
+  randomTransactionPooling();
+  res.send(true);
+});
+
 // Returns a list of names of all running nodes on the private net.
 app.route('/api/nodes').get((req, res) => {
   res.send(nodeNames);
@@ -319,6 +325,20 @@ function connectToNode(name) {
         console.log('error:', error);
         reject(error);
       });
+  });
+}
+
+/**
+ * Runs a bash script to pool a set of random transactions on the net for
+ * demo purposes.
+ */
+function randomTransactionPooling() {
+  const pool = spawn(`./tx-pooling`, [], {
+    shell: true,
+    cwd: path
+  });
+  pool.stdout.on('data', data => {
+    console.log(`stdout for pool txs: ${data}`);
   });
 }
 

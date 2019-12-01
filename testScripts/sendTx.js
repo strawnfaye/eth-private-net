@@ -31,10 +31,13 @@ function sendTransaction(sender, receiver) {
       toAddress = identities[i].address;
     }
   }
+  amount = Math.floor(Math.random() * 10000);
 
   personal.unlockAccount(fromAddress, 'foobar123', 10000);
   console.log(
-    'Attempting to send one szabo from',
+    'Attempting to send ',
+    amount,
+    ' Wei from',
     sender,
     'to',
     receiver + '.'
@@ -42,7 +45,7 @@ function sendTransaction(sender, receiver) {
   txn = eth.sendTransaction({
     from: fromAddress,
     to: toAddress,
-    value: web3.toWei(1, 'szabo')
+    value: amount
   });
   console.log('Transaction hash: ', txn);
 }

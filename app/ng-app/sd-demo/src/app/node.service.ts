@@ -84,4 +84,8 @@ export class NodeService {
   getMiner(): Observable<any> {
     return this.http.get<any>(`http://localhost:8000/api/getMiner`);
   }
+
+  poolTransactions(): Observable<any> {
+    return this.http.get<any>(`http://localhost:8000/api/poolTransactions`);
+  }
 }

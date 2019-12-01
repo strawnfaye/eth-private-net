@@ -51,6 +51,7 @@
             color="primary"
             matTooltip="Start miner"
             matTooltipPosition="right"
+            [(disabled)]="!_canMine"
             (click)="startMiner()"
           >
             <mat-icon>memory</mat-icon>
