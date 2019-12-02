@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { NodeService, Node, Block, Log, Transaction } from "../../node.service";
 
 @Component({
@@ -44,8 +44,8 @@ export class NetworkComponent implements OnInit {
           this.miner = miner;
           this.getBlockchain();
           this.getMinerLogs();
-          this.blockInterval = setInterval(this.getBlockchain.bind(this), 8000);
-          this.logInterval = setInterval(this.getMinerLogs.bind(this), 8000);
+          this.blockInterval = setInterval(this.getBlockchain.bind(this), 3000);
+          this.logInterval = setInterval(this.getMinerLogs.bind(this), 3000);
         }
       });
     });
@@ -54,7 +54,6 @@ export class NetworkComponent implements OnInit {
   public startNodes(): void {
     this.loading = true;
     this.nodeService.startAllNodes().subscribe(nodes => {
-      console.log(nodes);
       nodes.forEach(node => {
         if (this.findIndex(this.nodes, node) === -1) {
           this.nodeService.getBalance(node).subscribe(balance => {
@@ -86,8 +85,8 @@ export class NetworkComponent implements OnInit {
   onMinerChange(name: string) {
     this.miner = name;
     if (this.miner) {
-      this.blockInterval = setInterval(this.getBlockchain.bind(this), 8000);
-      this.logInterval = setInterval(this.getMinerLogs.bind(this), 8000);
+      this.blockInterval = setInterval(this.getBlockchain.bind(this), 3000);
+      this.logInterval = setInterval(this.getMinerLogs.bind(this), 3000);
     } else {
       clearInterval(this.blockInterval);
       clearInterval(this.logInterval);
@@ -109,12 +108,20 @@ export class NetworkComponent implements OnInit {
               tx.hash,
               tx.value
             );
-            console.log(temp);
             txs.push(temp);
           });
           this.blockchain.push(
             new Block(block.number, miner, txs, block.hash, block.parentHash)
           );
+
+          // if (document.getElementById("blockList")) {
+          //   const topPosA = document.getElementById("blockchainBody").offsetTop;
+          //   const topPosB = document.getElementById("blockList").offsetTop;
+          //   console.log(topPosA, topPosB);
+          //   console.log(document.getElementById("blockList"));
+          //   document.getElementById("blockchainBody").scrollTop = topPosA;
+          //   document.getElementById("blockList").scrollTop = topPosB;
+          // }
         });
       });
   }
@@ -142,7 +149,6 @@ export class NetworkComponent implements OnInit {
             messageOwner = "Tool";
           }
           let dateParts = dateString.split("|", 2);
-          console.log(dateParts);
           let date = dateParts[0].concat("-19 " + dateParts[1]);
           this.minerLogs.push(new Log(messageOwner, message, new Date(date)));
         });

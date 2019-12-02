@@ -127,7 +127,6 @@ export class NodeComponent implements OnInit {
   updateBalance(): void {
     this.nodeService.getBalance(this._name).subscribe(balance => {
       this._node.balance = balance;
-      console.log("balance for ", this._name, this._node.balance);
     });
   }
 }
